@@ -1,0 +1,23 @@
+{
+  "source": {
+    "include": ["src"],
+    "exclude": ["test"],
+    "includePattern": ".(js|ts)$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": ["plugins/markdown", "node_modules/better-docs/typescript"],
+  "opts": {
+    "encoding": "utf8",
+    "readme": "./readme.md",
+    "destination": "./docs/",
+    "recurse": true,
+    "verbose": true,
+    "template": "node_modules/docdash",
+    "access": "all"
+  },
+  "docdash": {
+    "typedefs": true,
+    "sectionOrder": ["Classes", "Namespaces", "Modules", "Externals", "Interfaces", "Events", "Mixins", "Tutorials"],
+    "collapse": true
+  }
+}
