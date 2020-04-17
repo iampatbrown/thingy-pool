@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>PooledObject - Documentation</title>
-
+    
+    
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -23,8 +25,9 @@
 
 <label for="nav-trigger" class="overlay"></label>
 
-<nav>
-    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Pool.html">Pool</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#acquire">acquire</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getInfo">getInfo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getOptions">getOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getSize">getSize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getState">getState</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#has">has</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#isBorrowed">isBorrowed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#release">release</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#releaseAndDestroy">releaseAndDestroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#start">start</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#stop">stop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#use">use</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PooledObject.html">PooledObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getIdleTime">getIdleTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getLoanPromise">getLoanPromise</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getObject">getObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getState">getState</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToAvailable">setToAvailable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToBorrowed">setToBorrowed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToDestroyed">setToDestroyed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToInvalid">setToInvalid</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToReturned">setToReturned</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToValidating">setToValidating</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PoolRequest.html">PoolRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#didTimeout">didTimeout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#getPromise">getPromise</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#hasTimeout">hasTimeout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#reject">reject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#resolve">resolve</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TimeoutError.html">TimeoutError</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryCreateError">factoryCreateError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryDestroyError">factoryDestroyError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryValidateError">factoryValidateError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:poolDidStart">poolDidStart</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:poolDidStop">poolDidStop</a></span></li><li class="nav-heading">Interfaces</li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="Factory.html">Factory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#create">create</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#destroy">destroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#validate">validate</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="ObjectQueue.html">ObjectQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#peek">peek</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#pop">pop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#push">push</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#shift">shift</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="Options.html">Options</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="RequestQueue.html">RequestQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#dequeue">dequeue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#enqueue">enqueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#remove">remove</a></span></li>
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Pool.html">Pool</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Pool.html#acquire">acquire</a></li><li data-type='method' style='display: none;'><a href="Pool.html#clear">clear</a></li><li data-type='method' style='display: none;'><a href="Pool.html#getInfo">getInfo</a></li><li data-type='method' style='display: none;'><a href="Pool.html#getOptions">getOptions</a></li><li data-type='method' style='display: none;'><a href="Pool.html#getSize">getSize</a></li><li data-type='method' style='display: none;'><a href="Pool.html#getState">getState</a></li><li data-type='method' style='display: none;'><a href="Pool.html#has">has</a></li><li data-type='method' style='display: none;'><a href="Pool.html#isBorrowed">isBorrowed</a></li><li data-type='method' style='display: none;'><a href="Pool.html#release">release</a></li><li data-type='method' style='display: none;'><a href="Pool.html#releaseAndDestroy">releaseAndDestroy</a></li><li data-type='method' style='display: none;'><a href="Pool.html#start">start</a></li><li data-type='method' style='display: none;'><a href="Pool.html#stop">stop</a></li><li data-type='method' style='display: none;'><a href="Pool.html#use">use</a></li></ul></li><li><a href="PooledObject.html">PooledObject</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PooledObject.html#getIdleTime">getIdleTime</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#getLoanPromise">getLoanPromise</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#getObject">getObject</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#getState">getState</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToAvailable">setToAvailable</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToBorrowed">setToBorrowed</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToDestroyed">setToDestroyed</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToInvalid">setToInvalid</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToReturned">setToReturned</a></li><li data-type='method' style='display: none;'><a href="PooledObject.html#setToValidating">setToValidating</a></li></ul></li><li><a href="PoolRequest.html">PoolRequest</a><ul class='methods'><li data-type='method' style='display: none;'><a href="PoolRequest.html#didTimeout">didTimeout</a></li><li data-type='method' style='display: none;'><a href="PoolRequest.html#getPromise">getPromise</a></li><li data-type='method' style='display: none;'><a href="PoolRequest.html#hasTimeout">hasTimeout</a></li><li data-type='method' style='display: none;'><a href="PoolRequest.html#reject">reject</a></li><li data-type='method' style='display: none;'><a href="PoolRequest.html#resolve">resolve</a></li></ul></li><li><a href="TimeoutError.html">TimeoutError</a></li></ul><h3>Interfaces</h3><ul><li><a href="Factory.html">Factory</a><ul class='methods'><li data-type='method' style='display: none;'><a href="Factory.html#create">create</a></li><li data-type='method' style='display: none;'><a href="Factory.html#destroy">destroy</a></li><li data-type='method' style='display: none;'><a href="Factory.html#validate">validate</a></li></ul></li><li><a href="ObjectQueue.html">ObjectQueue</a><ul class='methods'><li data-type='method' style='display: none;'><a href="ObjectQueue.html#peek">peek</a></li><li data-type='method' style='display: none;'><a href="ObjectQueue.html#pop">pop</a></li><li data-type='method' style='display: none;'><a href="ObjectQueue.html#push">push</a></li><li data-type='method' style='display: none;'><a href="ObjectQueue.html#shift">shift</a></li></ul></li><li><a href="Options.html">Options</a></li><li><a href="RequestQueue.html">RequestQueue</a><ul class='methods'><li data-type='method' style='display: none;'><a href="RequestQueue.html#dequeue">dequeue</a></li><li data-type='method' style='display: none;'><a href="RequestQueue.html#enqueue">enqueue</a></li><li data-type='method' style='display: none;'><a href="RequestQueue.html#remove">remove</a></li></ul></li></ul><h3>Events</h3><ul><li><a href="Pool.html#event:factoryCreateError">factoryCreateError</a></li><li><a href="Pool.html#event:factoryDestroyError">factoryDestroyError</a></li><li><a href="Pool.html#event:factoryValidateError">factoryValidateError</a></li><li><a href="Pool.html#event:poolDidStart">poolDidStart</a></li><li><a href="Pool.html#event:poolDidStop">poolDidStop</a></li></ul>
 </nav>
 
 <div id="main">
@@ -45,16 +48,16 @@
         PooledObject
         </h2>
         
-            <div class="class-description"><p>A wrapped object with an updatable state</p></div>
+            <div class="class-description usertext"><p>A wrapped object with an updatable state</p></div>
         
     
 </header>
 
 <article>
-    <div class="container-overview">
     
+        <div class="container-overview">
         
-<div class="section-method">
+            
 
     
     <h2>Constructor</h2>
@@ -67,34 +70,7 @@
 
 
 
-
-
-
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -108,12 +84,47 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Create a pooled object and changes it's state to AVAILABLEconst thingy = new Thingy()const pooledObject = new PooledObject(thingy)pooledObject.setToAvailable()</code></pre>
 
 
 
@@ -153,7 +164,7 @@
             <td class="type">
             
                 
-<span class="param-type"><code>T</code></span>
+<span class="param-type">T</span>
 
 
             
@@ -175,10 +186,7 @@
                 </td>
             
 
-            <td class="description last">
-                <p>The object being pooled</p>
-                
-            </td>
+            <td class="description last"><p>The object being pooled</p></td>
         </tr>
 
     
@@ -191,7 +199,7 @@
             <td class="type">
             
                 
-<span class="param-type"><code>function</code></span>
+<span class="param-type">function</span>
 
 
             
@@ -212,15 +220,12 @@
             
                 <td class="default">
                 
-                    Date.now
+                    <code>Date.now</code>
                 
                 </td>
             
 
-            <td class="description last">
-                <p>Function to get the current timestamp. See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now">Date.now()</a></p>
-                
-            </td>
+            <td class="description last"><p>Function to get the current timestamp. See <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/now">Date.now()</a></p></td>
         </tr>
 
     
@@ -242,21 +247,19 @@
 
 
 
-<div class="section-examples">
-<h5>Example</h5>
 
-    <pre class="prettyprint"><code>// Create a pooled object and changes it's state to AVAILABLEconst thingy = new Thingy()const pooledObject = new PooledObject(thingy)pooledObject.setToAvailable()</code></pre>
 
-</div>
 
-</div>
+        
+        </div>
     
-    </div>
 
     
 
     
 
+    
+    
     
 
      
@@ -270,7 +273,6 @@
 
         
             
-<div class="section-method">
 
     
 
@@ -280,39 +282,8 @@
 
 
 
-<div class="description">
-    <p>The number of milliseconds since set to <code>AVAILABLE</code>. Returns <code>-1</code> if not <code>AVAILABLE</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -326,12 +297,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>The number of milliseconds since set to <code>AVAILABLE</code>. Returns <code>-1</code> if not <code>AVAILABLE</code></p>
+</div>
 
 
 
@@ -348,33 +346,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>number</code></span>
+<span class="param-type">number</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -384,39 +387,8 @@
 
 
 
-<div class="description">
-    <p>Promise that will be resolved when object gets returned. Returns <code>null</code> if not <code>BORROWED</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -430,12 +402,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Promise that will be resolved when object gets returned. Returns <code>null</code> if not <code>BORROWED</code></p>
+</div>
 
 
 
@@ -452,36 +451,41 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>Promise.&lt;void></code></span>
+<span class="param-type">Promise.&lt;void></span>
 |
 
-<span class="param-type"><code>null</code></span>
+<span class="param-type">null</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -491,39 +495,8 @@
 
 
 
-<div class="description">
-    <p>The object that is pooled</p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -537,12 +510,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>The object that is pooled</p>
+</div>
 
 
 
@@ -559,33 +559,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>T</code></span>
+<span class="param-type">T</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -595,39 +600,8 @@
 
 
 
-<div class="description">
-    <p>Current state of the pooled object</p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -641,12 +615,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Current state of the pooled object</p>
+</div>
 
 
 
@@ -663,33 +664,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code><a href="PooledObject.html#ObjectState">ObjectState</a></code></span>
+<span class="param-type"><a href="PooledObject.html#ObjectState">ObjectState</a></span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -699,39 +705,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>AVAILABLE</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -745,12 +720,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>AVAILABLE</code></p>
+</div>
 
 
 
@@ -767,33 +769,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -803,39 +810,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>BORROWED</code> and attaches a promise to the pooled object which gets resolved on setToReturned</p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -849,12 +825,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>BORROWED</code> and attaches a promise to the pooled object which gets resolved on setToReturned</p>
+</div>
 
 
 
@@ -871,33 +874,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -907,39 +915,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>DESTROYED</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -953,12 +930,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>DESTROYED</code></p>
+</div>
 
 
 
@@ -975,33 +979,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -1011,39 +1020,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>INVALID</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1057,12 +1035,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>INVALID</code></p>
+</div>
 
 
 
@@ -1079,33 +1084,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -1115,39 +1125,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>RETURNED</code> and resolves the loan promise</p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1161,12 +1140,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>RETURNED</code> and resolves the loan promise</p>
+</div>
 
 
 
@@ -1183,33 +1189,38 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
             
-<div class="section-method">
 
     
 
@@ -1219,39 +1230,8 @@
 
 
 
-<div class="description">
-    <p>Changes state to <code>VALIDATING</code></p>
-</div>
-
-
-
-
 
 <dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
 
     
     <dt class="tag-source">Source:</dt>
@@ -1265,12 +1245,39 @@
     
 
     
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 </dl>
 
 
 
 
 
+<div class="description usertext">
+    <p>Changes state to <code>VALIDATING</code></p>
+</div>
 
 
 
@@ -1287,30 +1294,36 @@
 
 
 
-<div class="section-returns">
+
+
+
+
+
+
+
+
+
 <h5>Returns:</h5>
 
         
 
+
 <dl class="param-type">
     <dt>
-        Type:
+        Type
     </dt>
     <dd>
         
-<span class="param-type"><code>this</code></span>
+<span class="param-type">this</span>
 
 
     </dd>
 </dl>
 
-
     
-</div>
 
 
 
-</div>
         
     
 
@@ -1319,13 +1332,57 @@
 
         
                 
-<div class="section-members">
 <h4 class="name" id="ObjectState">ObjectState</h4>
 
 
 
 
-<div class="description">
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="constants_ObjectStates.js.html">constants/ObjectStates.js</a>, <a href="constants_ObjectStates.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
     <p>The possible states:</p>
 <ul>
 <li>CREATED</li>
@@ -1340,73 +1397,29 @@
 
 
 
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="constants_ObjectStates.js.html">constants/ObjectStates.js</a>, <a href="constants_ObjectStates.js.html#line1">line 1</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
     <h5>Type:</h5>
     <ul>
         <li>
             
-<span class="param-type"><code>"CREATED"</code></span>
+<span class="param-type">"CREATED"</span>
 |
 
-<span class="param-type"><code>"AVAILABLE"</code></span>
+<span class="param-type">"AVAILABLE"</span>
 |
 
-<span class="param-type"><code>"RETURNED"</code></span>
+<span class="param-type">"RETURNED"</span>
 |
 
-<span class="param-type"><code>"VALIDATING"</code></span>
+<span class="param-type">"VALIDATING"</span>
 |
 
-<span class="param-type"><code>"BORROWED"</code></span>
+<span class="param-type">"BORROWED"</span>
 |
 
-<span class="param-type"><code>"INVALID"</code></span>
+<span class="param-type">"INVALID"</span>
 |
 
-<span class="param-type"><code>"DESTROYED"</code></span>
+<span class="param-type">"DESTROYED"</span>
 
 
         </li>
@@ -1416,7 +1429,6 @@
 
 
 
-</div>
 
             
     
@@ -1429,15 +1441,23 @@
 
 
 
+    
+    
 </div>
 
 <br class="clear">
 
 <footer>
-    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Apr 17 2020 13:41:10 GMT+1000 (Australian Eastern Standard Time) using the Minami theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Apr 17 2020 15:03:15 GMT+1000 (Australian Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
 <script src="scripts/linenumber.js"></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
 </body>
 </html>
