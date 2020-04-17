@@ -1,16 +1,16 @@
 # Thingy Pool
 
-# About
+## About
 
 A promise-based object pool for [Node.js](https://nodejs.org/).
 
-# Installation
+## Installation
 
 ```sh
 $ npm install thingy-pool
 ```
 
-# Creating a factory
+## Creating a factory
 
 The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed. See [Factory](#Factory) for more information
 
@@ -30,7 +30,7 @@ const factory = {
 };
 ```
 
-# Creating a pool
+## Creating a pool
 
 See [Options](#Options) for a complete list of options
 
@@ -42,7 +42,7 @@ const options = { minSize: 2, maxSize: 5 };
 const pool = new Pool(factory, options);
 ```
 
-# Using the pool
+## Using the pool
 
 ```js
 // or const fetchSomething = async () => {
@@ -69,7 +69,7 @@ fetchAndPrint('something'); // fetched something: result
 fetchAndPrint('somethingElse'); // fetched somethingElse: result
 ```
 
-# Options
+## Options
 
 | Option                   | Type               | Description                                                                                               |
 | ------------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
@@ -86,7 +86,7 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 | shouldValidateOnReturn   | `boolean`          | Should the pool check objects with factory.validate when they are being returned?                         |
 | shouldUseFifo            | `boolean`          | Should the pool dispatch objects using first in first out (FIFO)?                                         |
 
-# Pool Methods
+## Pool Methods
 
 ### pool.acquire(options?) → {Promise\<T>}
 
@@ -233,7 +233,7 @@ Use a pooled object with a callback and release to object automatically
 const result = await pool.use(thingy => thingy.doSomethingAsync());
 ```
 
-# Pool Info
+## Pool Info
 
 ```js
 pool.getInfo();
@@ -253,19 +253,19 @@ pool.getInfo();
 | size                      | `number` | Total number of objects in the pool. Includes objects being created and excludes objects being destroyed |
 | state                     | `string` | The current pool state                                                                                   |
 
-# Pool Events
+## Pool Events
 
-# Factory
+## Factory
 
-# Idle Objects
+## Idle Objects
 
-# Custom Queue Implementations
+## Custom Queue Implementations
 
-# Testing
+## Testing
 
-# Benchmarks
+## Benchmarks
 
-# Credits
+## Credits
 
 Thingy Pool was heavily inspired by [Generic Pool](https://www.npmjs.com/package/generic-pool). Thanks to [@coopernurse](https://github.com/coopernurse) and everyone that has contributed to the project.
 
@@ -283,7 +283,7 @@ Special Thanks:
 
 The above people and repositories really helped me while working on this. I'm including them here to say thanks and maybe someone else will find them useful.
 
-# License
+## License
 
 Copyright 2020 [Pat Brown](https://github.com/iampatbrown)
 
