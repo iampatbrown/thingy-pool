@@ -1,56 +1,46 @@
 /**
- * @interface SafePromiseResult
- * @template  T
+ * @typedef {Object} SafePromiseResult
  * @property {T} result
+ * @property {undefined} [error]
+ * @template T
+ * @private
+ * @memberof Utils
+ * @alias SafePromiseResult
  */
 
 /**
- * @interface SafePromiseError
+ * @typedef {Object} SafePromiseError
+ * @property {undefined} [result]
  * @property {*} error
+ * @private
+ * @memberof Utils
+ * @alias SafePromiseError
  */
 
 /**
- * Wrapped promise
- * @interface SafePromise
- * @template  T
- * @extends {Promise<SafePromiseResult<T>|SafePromiseError>}}
- */
-
-/**
- * Wraps promise in try catch block and returns a new promise that resolves to an object containing
- * the result or the error
+ * A Promise that doesn't throw. Resolves to an object containing the promised result or a caught error
  * @example
+ * const { result, error } = await safePromise
+ * @typedef {Promise<SafePromiseResult<T>|SafePromiseError>} SafePromise
+ * @template T
+ * @private
+ * @memberof Utils
+ * @alias SafePromise
+ */
+
+/**
+ * Returns a new promise that resolves to an object containing the result of the given promise or the caught error
+ * @example
+ * const { result, error } = await toSafePromise(promise)
+ *
  * // can be used with Promise.all() to safely await all promises
- * const safePromises = promises.map(promise => toSafePromise(promise))
+ * const safePromises = arrayOfPromises.map(promise => toSafePromise(promise))
  * const results = await Promise.all(safePromises)
  * results // [{ result: 'OK' }, { result: 'OK' }, { error: Error }, { result: 'OK' }]
  *
- * @example
- * // storing pending promises in a set and removing after promise resolves
- * const pendingPromises = new Set()
- * const promise = doSomethingAsync()
- * pendingPromises.add(promise)
- * const { result, error } = await toSafePromise(promise)
- * pendingPromises.delete(promise)
- * if(error) throw error
- * return result
- *
- * @example
- * // mainly to avoid this pattern
- * const pendingPromises = new Set()
- * const promise = doSomethingAsync()
- * pendingPromises.add(promise)
- * try {
- *  const result = await promise
- *  pendingPromises.delete(promise)
- *  return result
- * } catch (error){
- *  pendingPromises.delete(promise)
- *  throw error
- * }
  *
  * @template T
- * @param {Promise<T>} promise
+ * @param {Promise<T>|T} promise Promise to convert
  * @returns {SafePromise<T>}
  * @memberof Utils
  */

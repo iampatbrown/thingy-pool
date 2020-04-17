@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>queues/DoubleEndedQueue.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Pool.html">Pool</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#acquire">acquire</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#clear">clear</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getInfo">getInfo</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getOptions">getOptions</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getSize">getSize</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#getState">getState</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#has">has</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#isBorrowed">isBorrowed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#release">release</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#releaseAndDestroy">releaseAndDestroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#start">start</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#stop">stop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pool.html#use">use</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PooledObject.html">PooledObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getIdleTime">getIdleTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getLoanPromise">getLoanPromise</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getObject">getObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#getState">getState</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToAvailable">setToAvailable</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToBorrowed">setToBorrowed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToDestroyed">setToDestroyed</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToInvalid">setToInvalid</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToReturned">setToReturned</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PooledObject.html#setToValidating">setToValidating</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="PoolRequest.html">PoolRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#didTimeout">didTimeout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#getPromise">getPromise</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#hasTimeout">hasTimeout</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#reject">reject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="PoolRequest.html#resolve">resolve</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="TimeoutError.html">TimeoutError</a></span></li><li class="nav-heading">Events</li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryCreateError">factoryCreateError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryDestroyError">factoryDestroyError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:factoryValidateError">factoryValidateError</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:poolDidStart">poolDidStart</a></span></li><li class="nav-heading"><span class="nav-item-type type-event">E</span><span class="nav-item-name"><a href="Pool.html#event:poolDidStop">poolDidStop</a></span></li><li class="nav-heading">Interfaces</li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="Factory.html">Factory</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#create">create</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#destroy">destroy</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Factory.html#validate">validate</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="ObjectQueue.html">ObjectQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#peek">peek</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#pop">pop</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#push">push</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="ObjectQueue.html#shift">shift</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="Options.html">Options</a></span></li><li class="nav-heading"><span class="nav-item-type type-interface">I</span><span class="nav-item-name"><a href="RequestQueue.html">RequestQueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#dequeue">dequeue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#enqueue">enqueue</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="RequestQueue.html#remove">remove</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">queues/DoubleEndedQueue.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-bitwise */
+
+// Minimum and starting size of the queue
+const MIN_CAPACITY = 1;
+
+// The maximum items the queue can hold. see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/length
+const MAX_CAPACITY = 4294967295; // (2 ** 32) -1
+
+// When queue.length is below this threshold the array backing the queue will not be resized when items are removed
+const DECREASE_CAPACITY_THRESH = 8192; // 2 ** 13
+
+/**
+ * An array backed double-ended queue
+ *
+ * ```js
+ * const queue = new DoubleEndedQueue()
+ * queue.push('B')
+ * queue.push('C')
+ * queue.unshift('A')
+ * queue.toArray() // [ 'A', 'B', 'C' ]
+ *```
+ *
+ * @implements {Iterable} is an iterable
+ * @template T
+ * @private
+ */
+class DoubleEndedQueue {
+  /**
+   *Creates an instance of DoubleEndedQueue.
+   */
+  constructor() {
+    /**
+     * Current queue capacity. Must be a power of 2
+     * @type {number}
+     */
+    this._capacity = MIN_CAPACITY;
+
+    /**
+     * Capacity mask. Used to determine the correct index of queued items
+     * @type {number}
+     */
+    this._capacityMask = this._capacity - 1;
+
+    /**
+     * Array holding the queued items. `Array.length` is manually set to the queue's capacity to preallocate space
+     * @type {Array&lt;T|undefined>}
+     */
+    this._items = new Array(this._capacity);
+
+    /**
+     * Index in the array corresponding with the first position in the queue
+     * @type {number}
+     */
+    this._head = 0;
+
+    /**
+     * Number of items in the queue
+     * @type {number}
+     */
+    this._length = 0;
+  }
+
+  /**
+   *
+   * Number of items in the queue
+   * @type {number}
+   */
+  get length() {
+    return this._length;
+  }
+
+  /**
+   * Removes the item at the end of the queue and returns it
+   * @returns {T|undefined} The removed item or `undefined` if empty
+   */
+  pop() {
+    if (this._length === 0) return undefined;
+    this._length -= 1;
+    const tail = (this._head + this._length) &amp; this._capacityMask;
+    const item = this._items[tail];
+    this._items[tail] = undefined;
+    if (this._length > DECREASE_CAPACITY_THRESH &amp;&amp; this._length * 2 &lt; this._capacity / 2) this._decreaseCapacity();
+    return item;
+  }
+
+  /**
+   * Adds an item to the end of the queue
+   * @param {T} item Item to add to the end of the queue
+   * @returns {number} New queue `length`
+   */
+  push(item) {
+    if (arguments.length &lt; 1) return this._length;
+    if (this._length > this._capacityMask) this._increaseCapacity();
+    this._items[(this._head + this._length) &amp; this._capacityMask] = item;
+    this._length += 1;
+    return this._length;
+  }
+
+  /**
+   * Removes the item at the start of the queue and returns it
+   * @returns {T|undefined} The removed item or `undefined` if empty
+   */
+  shift() {
+    if (this._length === 0) return undefined;
+    const item = this._items[this._head];
+    this._items[this._head] = undefined;
+    this._head = (this._head + 1) &amp; this._capacityMask;
+    this._length -= 1;
+    if (this._length > DECREASE_CAPACITY_THRESH &amp;&amp; this._length * 2 &lt; this._capacity / 2) this._decreaseCapacity();
+    return item;
+  }
+
+  /**
+   * Adds an item to the start of the queue
+   * @param {T} item Item to add to the start of the queue
+   * @returns {number} New queue `length`
+   */
+  unshift(item) {
+    if (arguments.length &lt; 1) return this._length;
+    if (this._length > this._capacityMask) this._increaseCapacity();
+    // When current head is 0 this will make the new head the last index in the array
+    this._head = (this._head + this._capacityMask) &amp; this._capacityMask;
+    this._items[this._head] = item;
+    this._length += 1;
+    return this._length;
+  }
+
+  /**
+   * @returns {T|undefined} The first item in the queue or `undefined` if empty
+   */
+  peek() {
+    if (this._length === 0) return undefined;
+    return this._items[this._head];
+  }
+
+  /**
+   * @param {number} index Index to peek
+   * @returns {T|undefined} The item at `index` or `undefined` if no item
+   */
+  peekIndex(index) {
+    // Stops indexes outside this range being masked to an incorrect item on the array
+    if (index &lt; 0 || index >= this._length) return undefined;
+    return this._items[(this._head + index) &amp; this._capacityMask];
+  }
+
+  /**
+   *
+   * Removes the item at given index and shuffles the other items in the array to fill the gap
+   * @param {number} index Index of item to be removed
+   * @returns {boolean} `true` if item was removed, else `false`
+   */
+  _removeAtIndex(index) {
+    // destructuring to reduce property lookup in loop... need to check the impact of this again...
+    const { _head, _capacityMask, _items, _length } = this;
+    /* ignore coverage: shouldn't happen because we don't call _removeAtIndex unless an index is found */
+    if (index &lt; 0 || index >= _length) return false;
+    // shortcut first and last item...
+    if (index === 0) {
+      this.shift();
+      return true;
+    }
+    if (index === _length - 1) {
+      this.pop();
+      return true;
+    }
+    // check which side of removed item has the fewest items that need to be moved in the array
+    if (index &lt; _length / 2) {
+      // if the removed item is in the first half, copy items from left to right
+      for (let i = _head + index; i > _head; i -= 1) {
+        // [head][item2][item3][removed] = [head]->[head]->[item2]->[item3]
+        _items[i &amp; _capacityMask] = _items[(i - 1) &amp; _capacityMask];
+      }
+      // make previous head undefined and update new head index = [head][item2][item3]
+      _items[_head] = undefined;
+      this._head = (_head + 1) &amp; _capacityMask;
+    } else {
+      // if the removed item is in the second half, copy items from right to left
+      const tail = _head + _length - 1;
+      for (let i = _head + index; i &lt; tail; i += 1) {
+        // [removed][item3][item4][tail] = [item3]&lt;-[item4]&lt;-[tail]&lt;-[tail]
+        _items[i &amp; _capacityMask] = _items[(i + 1) &amp; _capacityMask];
+      }
+      // make previous tail undefined = [item3][item4][tail]
+      _items[tail &amp; _capacityMask] = undefined;
+    }
+    this._length -= 1;
+    return true;
+  }
+
+  /**
+   * Removes the given item from the queue
+   * @param {T} item Item to remove from queue
+   * @returns {boolean} `true` if item was found and removed, else `false`
+   */
+  remove(item) {
+    if (this._length === 0) return false;
+    const { _head, _length, _items, _capacityMask } = this;
+    // loop through the queue starting at the head
+    for (let index = 0; index &lt; _length; index += 1) {
+      if (_items[(_head + index) &amp; _capacityMask] === item) {
+        // stop loop and remove item if found
+        return this._removeAtIndex(index);
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Returns an array containing the queued items
+   * @returns {Array&lt;T>} Array of queued items
+   */
+  toArray() {
+    if (this._length === 0) return [];
+    const { _head, _length, _items, _capacityMask } = this;
+    // preallocate space in array for queued items
+    const array = new Array(_length);
+    // copy queued items to corresponding index in array
+    for (let index = 0; index &lt; _length; index += 1) {
+      array[index] = _items[(_head + index) &amp; _capacityMask];
+    }
+    return array;
+  }
+
+  /**
+   * Increases the capacity and length of the array holding the queued items to the next power of 2
+   */
+  _increaseCapacity() {
+    /* ignore coverage: is there an efficient way to test this? */
+    if (this._capacity >= MAX_CAPACITY) throw RangeError('Invalid queue length');
+    // ensure that the first item in the queue is at index 0 in the array before changing capacity
+    if (this._head !== 0) {
+      this._items = this.toArray();
+      this._head = 0;
+    }
+    this._capacity = Math.min(this._capacity * 2, MAX_CAPACITY);
+    this._capacityMask = this._capacity - 1;
+    this._items.length = this._capacity;
+  }
+
+  /**
+   * Decrease the capacity and length of the array holding the queued items to the previous power of 2
+   */
+  _decreaseCapacity() {
+    // ensure that the first item in the queue is at index 0 in the array before changing capacity
+    if (this._head !== 0) {
+      this._items = this.toArray();
+      this._head = 0;
+    }
+    this._capacity = Math.max(this._capacity / 2, MIN_CAPACITY);
+    this._capacityMask = this._capacity - 1;
+    this._items.length = this._capacity;
+  }
+
+  /**
+   *
+   * Default iterator
+   * @returns {Iterator&lt;T>}
+   */
+  [Symbol.iterator]() {
+    // not sure the best way to do this... tried a few different ways... use toArray() if you need an array
+    const queue = this;
+    let done = false;
+    let index = 0;
+    return {
+      next: () => {
+        if (done) return { value: undefined, done: true };
+        if (index >= queue.length) {
+          done = true;
+          return { value: undefined, done: true };
+        }
+        // not a massive fan of this... don't want to check for undefined though... it think queue.length works better... not sure...
+        const value = /** @type {T} */ (queue.peekIndex(index));
+        index += 1;
+        return { value, done: false };
+      },
+    };
+  }
+}
+
+module.exports = DoubleEndedQueue;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Fri Apr 17 2020 13:41:10 GMT+1000 (Australian Eastern Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

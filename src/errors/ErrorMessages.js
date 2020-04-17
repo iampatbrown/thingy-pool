@@ -3,7 +3,7 @@ const ErrorMessages = {
   CANT_BORROW_NOT_AVAILABLE: 'Unable to borrow object that is not available',
   CANT_RETURN_NOT_BORROWED: 'Unable to return object that is not borrowed',
   CANT_VALIDATE_BORROWED: 'Unable to validate object that is borrowed',
-  EVICT_NEEDS_MIN_OR_MAX_IDLE: 'evictionIntervalInMs must be set with minIdleTime and/or maxIdleTime',
+  IDLE_CHECK_NEEDS_SOFT_OR_HARD_TIME: 'evictionIntervalInMs must be set with minIdleTime and/or maxIdleTime',
   IS_SHUTTING_DOWN: 'Pool is shutting down',
   IS_STOPPED: 'Pool is stopped',
   MAX_REQUESTS: 'Pool has max pending requests',

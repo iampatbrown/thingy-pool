@@ -5,15 +5,14 @@
     "includePattern": ".(js|ts)$",
     "excludePattern": "(node_modules/|docs)"
   },
-  "plugins": ["plugins/markdown", "node_modules/better-docs/typescript"],
+  "plugins": ["plugins/markdown", "node_modules/jsdoc-autoprivate/autoprivate.js"],
   "opts": {
     "encoding": "utf8",
     "readme": "./readme.md",
     "destination": "./docs/",
     "recurse": true,
     "verbose": true,
-    "template": "node_modules/docdash",
-    "access": "all"
+    "template": "node_modules/minami"
   },
   "docdash": {
     "typedefs": true,

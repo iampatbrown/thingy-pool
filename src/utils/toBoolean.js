@@ -1,11 +1,12 @@
 /**
- * Convert value to boolean else throw
+ * Tries to convert given value to a boolean
  * @example
  * toBoolean(true) // true
  * toBoolean(0) // false
+ * toBoolean('FALSE') // false
  * toBoolean(2) // TypeError
- * @param {*} value
- * @param {string} [name='value'] Used in error message
+ * @param {*} value Value to convert. Works with boolean-like values. eg. `1`, `'TRUE'`, `'0'`,...
+ * @param {string} [name='value'] Used for error message
  * @returns {boolean}
  * @memberof Utils
  */

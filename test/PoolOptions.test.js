@@ -3,10 +3,6 @@ const PoolOptions = require('../src/PoolOptions');
 const defaults = new PoolOptions();
 
 describe('PoolOptions.constructor', () => {
-  it('should create PoolOptions with defaults', () => {
-    expect(new PoolOptions()).toEqual(defaults);
-  });
-
   it('should merge given options with defaults', () => {
     const given = { minSize: 3, maxSize: 10 };
     const expected = { ...defaults, ...given };
@@ -66,6 +62,12 @@ describe('PoolOptions.maxSize', () => {
     expect(() => new PoolOptions({ minSize: [] })).toThrow(TypeError);
   });
 
+  it('should decrease minSize to maxSize if needed', () => {
+    const options = new PoolOptions({ minSize: 5, maxSize: 10 });
+    expect(options.set({ maxSize: 7 }).minSize).toBe(5);
+    expect(options.set({ maxSize: 3 }).minSize).toBe(3);
+  });
+
   it('should throw if given maxSize is less than given minSize', () => {
     expect(new PoolOptions({ minSize: 5, maxSize: 5 }).maxSize).toBe(5);
     expect(() => new PoolOptions({ minSize: 5, maxSize: 4 })).toThrow(RangeError);
@@ -88,24 +90,27 @@ describe('PoolOptions.maxPendingRequests', () => {
   });
 });
 
-describe.each(['defaultTimeoutInMs', 'evictionIntervalInMs', 'testsPerEviction', 'minIdleTime', 'maxIdleTime'])(
-  'PoolOptions.%s',
-  option => {
-    it('should be a positive integer, zero or null', () => {
-      expect(new PoolOptions({ [option]: 1 })[option]).toBe(1);
-      expect(new PoolOptions({ [option]: 3.5 })[option]).toBe(3);
-      expect(new PoolOptions({ [option]: '1' })[option]).toBe(1);
-      expect(new PoolOptions({ [option]: '9.5' })[option]).toBe(9);
-      expect(new PoolOptions({ [option]: null })[option]).toBe(null);
-      expect(new PoolOptions({ [option]: false })[option]).toBe(null);
-      expect(() => new PoolOptions({ [option]: '-8' })).toThrow(TypeError);
-      expect(() => new PoolOptions({ [option]: -2 })).toThrow(TypeError);
-      expect(() => new PoolOptions({ [option]: true })).toThrow(TypeError);
-      expect(() => new PoolOptions({ [option]: {} })).toThrow(TypeError);
-      expect(() => new PoolOptions({ [option]: [] })).toThrow(TypeError);
-    });
-  },
-);
+describe.each([
+  'defaultTimeoutInMs',
+  'checkIdleIntervalInMs',
+  'maxIdleToRemove',
+  'softIdleTimeInMs',
+  'hardIdleTimeInMs',
+])('PoolOptions.%s', option => {
+  it('should be a positive integer, zero or null', () => {
+    expect(new PoolOptions({ [option]: 1 })[option]).toBe(1);
+    expect(new PoolOptions({ [option]: 3.5 })[option]).toBe(3);
+    expect(new PoolOptions({ [option]: '1' })[option]).toBe(1);
+    expect(new PoolOptions({ [option]: '9.5' })[option]).toBe(9);
+    expect(new PoolOptions({ [option]: null })[option]).toBe(null);
+    expect(new PoolOptions({ [option]: false })[option]).toBe(null);
+    expect(() => new PoolOptions({ [option]: '-8' })).toThrow(TypeError);
+    expect(() => new PoolOptions({ [option]: -2 })).toThrow(TypeError);
+    expect(() => new PoolOptions({ [option]: true })).toThrow(TypeError);
+    expect(() => new PoolOptions({ [option]: {} })).toThrow(TypeError);
+    expect(() => new PoolOptions({ [option]: [] })).toThrow(TypeError);
+  });
+});
 
 describe.each(['shouldAutoStart', 'shouldValidateOnDispatch', 'shouldValidateOnReturn', 'shouldUseFifo'])(
   'PoolOptions.%s',
@@ -125,9 +130,9 @@ describe.each(['shouldAutoStart', 'shouldValidateOnDispatch', 'shouldValidateOnR
   },
 );
 
-describe('PoolOptions.evictionIntervalInMs', () => {
+describe('PoolOptions.checkIdleIntervalInMs', () => {
   it('should throw if eviction enabled without any Idle Time set', () => {
-    expect(() => new PoolOptions({ evictionIntervalInMs: 1, minIdleTime: null, maxIdleTime: null })).toThrow(
+    expect(() => new PoolOptions({ checkIdleIntervalInMs: 1, softIdleTimeInMs: null, hardIdleTimeInMs: null })).toThrow(
       ReferenceError,
     );
   });

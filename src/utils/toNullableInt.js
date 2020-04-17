@@ -1,18 +1,16 @@
 const { MIN_SAFE_INTEGER, MAX_SAFE_INTEGER } = Number;
 
 /**
- *
- * Convert value to safe integer or null else throw
+ * Tries to convert given value to null or a safe integer
  * @example
  * toNullableInt("2") // 2
+ * toNullableInt(3.14) // 3
  * toNullableInt(false) // null
  * toNullableInt(true) // TypeError
  *
- * @param {*} value
- * @param {string} [name='value'] Used in error message
- * @param {object} [range]
- * @param {number} [range.min=MIN_SAFE_INTEGER]
- * @param {number} [range.max=MAX_SAFE_INTEGER]
+ * @param {*} value Value to convert. Works with `null`, `false` and integer-like values. eg. `'2'`, `3.14`,...
+ * @param {string} [name='value'] Used for error message
+ * @param {IntegerRange} [range] Accepted range for integer conversion
  * @returns {number | null}
  * @memberof Utils
  */

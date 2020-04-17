@@ -1,15 +1,33 @@
 # Thingy Pool
 
-> Object pool for node inspired by [Generic Pool](https://github.com/coopernurse/node-pool)
-
 ## About
 
-Object pool inspired by
+A promise-based object pool for [Node.js](https://nodejs.org/).
 
 ## Installation
 
 ```sh
 $ npm install thingy-pool
+```
+
+## Creating a factory
+
+The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed. See [Factory](./Factory.html) for a more detailed examples.
+
+```js
+const Api = require('some-api');
+
+const factory = {
+  create: async () => {
+    const api = new Api();
+    await api.connect();
+    return api;
+  },
+  destroy: async api => {
+    await api.disconnect();
+    console.log(`${api} has been disconnected!`);
+  },
+};
 ```
 
 ## Usage

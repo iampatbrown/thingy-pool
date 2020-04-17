@@ -9,7 +9,7 @@ const newValidatingObject = () => new PooledObject({}).setToValidating();
 const newInvalidObject = () => new PooledObject({}).setToInvalid();
 const newDestroyedObject = () => new PooledObject({}).setToDestroyed();
 
-describe('PooledObject.constructor', () => {
+describe('PooledObject', () => {
   describe('PooledObject.constructor', () => {
     it('should throw invalid object is provided', () => {
       expect(() => new PooledObject()).toThrowError(TypeError);
