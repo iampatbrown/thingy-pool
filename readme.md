@@ -37,7 +37,7 @@ const factory = {
 
 ## Creating a pool
 
-See [Options](#Options) for a complete list of options
+See [Options](#options) for a complete list of options
 
 ```js
 const Pool = require('thingy-pool');
@@ -127,7 +127,7 @@ await pool.clear();
 pool.getInfo(); // { size: 3, available: 0, borrowed: 3, ...moreInfo }
 ```
 
-### pool.getInfo() → {[PoolInfo](#Pool-Info)}
+### pool.getInfo() → {[PoolInfo](#pool-Info)}
 
 Current object counts and pool's state
 
@@ -137,7 +137,7 @@ pool.getInfo().available; // 2
 const { available, borrowed, size, state } = pool.getInfo();
 ```
 
-### pool.getOptions() → {[Options](#Options)}
+### pool.getOptions() → {[Options](#options)}
 
 Current pool options
 
@@ -183,7 +183,7 @@ pool.getState(); // 'STARTED'
 
 | Parameter |           Type            | Description                                          |
 | --------- | :-----------------------: | ---------------------------------------------------- |
-| event     | [PoolEvent](#Pool-Events) | The name of the event to listen for                  |
+| event     | [PoolEvent](#pool-events) | The name of the event to listen for                  |
 | callback  |         function          | A function that can take the argument from the event |
 
 ```js
