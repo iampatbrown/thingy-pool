@@ -4,27 +4,27 @@
 
 /* string content */
 .str {
-  color: #61ce3c;
+  color: #98c379;
 }
 
 /* a keyword */
 .kwd {
-  color: #fbde2d;
+  color: #c678dd;
 }
 
 /* a comment */
 .com {
-  color: #aeaeae;
+  color: #5c6370;
 }
 
 /* a type name */
 .typ {
-  color: #8da6ce;
+  color: #e5c07b;
 }
 
 /* a literal value */
 .lit {
-  color: #fbde2d;
+  color: #d19a66;
 }
 
 /* punctuation */
@@ -44,12 +44,12 @@
 
 /* a markup tag name */
 .tag {
-  color: #8da6ce;
+  color: #e5c07b;
 }
 
 /* a markup attribute name */
 .atn {
-  color: #fbde2d;
+  color: #c678dd;
 }
 
 /* a markup attribute value */
@@ -59,7 +59,7 @@
 
 /* a declaration */
 .dec {
-  color: #EF5050;
+  color: #ef5050;
 }
 
 /* a variable name */

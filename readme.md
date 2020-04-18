@@ -12,7 +12,7 @@ $ npm install thingy-pool
 
 ## Creating a factory
 
-The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed. See [Factory](#Factory) for more information
+The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed.
 
 ```js
 const Api = require('some-api');
@@ -27,6 +27,11 @@ const factory = {
     await api.disconnect();
     console.log(`${api} has been disconnected!`);
   },
+  validate: async api => {
+    const response = await api.ping();
+    const isValid = response && response.time < 200;
+    return isValid;
+  },
 };
 ```
 
@@ -38,7 +43,7 @@ See [Options](#Options) for a complete list of options
 const Pool = require('thingy-pool');
 const factory = require('./myObjectFactory');
 
-const options = { minSize: 2, maxSize: 5 };
+const options = { minSize: 2, maxSize: 5, shouldValidateOnDispatch: true };
 const pool = new Pool(factory, options);
 ```
 
@@ -57,7 +62,7 @@ fetchAndPrint('something'); // fetched something: result
 fetchAndPrint('somethingElse'); // fetched somethingElse: result
 ```
 
-Objects must be released back to the pool after they are used. Alternatively, a callback function can be given to `pool.use` and the pool will take care of acquiring and releasing the object. See below:
+Objects must be released back to the pool after they are used. Alternatively, a callback function can be given to `pool.use` and the pool will take care of acquiring and releasing the object.
 
 ```js
 async function fetchAndPrint(something) {
@@ -71,20 +76,20 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 
 ## Options
 
-| Option                   | Type               | Description                                                                                               |
-| ------------------------ | ------------------ | --------------------------------------------------------------------------------------------------------- |
-| minSize                  | `number`           | The minimum number of objects the pool will try to maintain including borrowed objects                    |
-| maxSize                  | `number`           | The maximum number of objects the pool can manage including objects being created                         |
-| defaultTimeoutInMs       | `number` or `null` | The default time in milliseconds requests for objects will time out                                       |
-| maxPendingRequests       | `number` or `null` | The number of requests that can be queued if the pool is at the maximum size and has no objects available |
-| checkIdleIntervalInMs    | `number` or `null` | The interval the pool checks for and removes idle objects                                                 |
-| maxIdleToRemove          | `number` or `null` | The max objects that can be removed each time the pool checks for idle objects                            |
-| softIdleTimeInMs         | `number` or `null` | The amount of time an object must be idle before being eligible for soft removal                          |
-| hardIdleTimeInMs         | `number` or `null` | The amount of time an object must be idle before being eligible for hard removal                          |
-| shouldAutoStart          | `boolean`          | Should the pool start creating objects to reach the minimum size as soon as it is created?                |
-| shouldValidateOnDispatch | `boolean`          | Should the pool check objects with factory.validate before dispatching them to requests?                  |
-| shouldValidateOnReturn   | `boolean`          | Should the pool check objects with factory.validate when they are being returned?                         |
-| shouldUseFifo            | `boolean`          | Should the pool dispatch objects using first in first out (FIFO)?                                         |
+| Property                 | Type               | Default | Description                                                                                               |
+| ------------------------ | ------------------ | ------- | --------------------------------------------------------------------------------------------------------- |
+| minSize                  | `number`           | 0       | The minimum number of objects the pool will try to maintain including borrowed objects                    |
+| maxSize                  | `number`           | 1       | The maximum number of objects the pool can manage including objects being created                         |
+| defaultTimeoutInMs       | `number` \| `null` | 30000   | The default time in milliseconds requests for objects will time out                                       |
+| maxPendingRequests       | `number` \| `null` | null    | The number of requests that can be queued if the pool is at the maximum size and has no objects available |
+| checkIdleIntervalInMs    | `number` \| `null` | null    | The interval the pool checks for and removes idle objects                                                 |
+| maxIdleToRemove          | `number` \| `null` | null    | The max objects that can be removed each time the pool checks for idle objects                            |
+| softIdleTimeInMs         | `number` \| `null` | null    | The amount of time an object must be idle before being eligible for soft removal                          |
+| hardIdleTimeInMs         | `number` \| `null` | null    | The amount of time an object must be idle before being eligible for hard removal                          |
+| shouldAutoStart          | `boolean`          | true    | Should the pool start creating objects to reach the minimum size as soon as it is created?                |
+| shouldValidateOnDispatch | `boolean`          | false   | Should the pool check objects with factory.validate before dispatching them to requests?                  |
+| shouldValidateOnReturn   | `boolean`          | false   | Should the pool check objects with factory.validate when they are being returned?                         |
+| shouldUseFifo            | `boolean`          | true    | Should the pool dispatch objects using first in first out (FIFO)?                                         |
 
 ## Pool Methods
 
@@ -92,12 +97,10 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 
 Request an object from the Pool. If no objects are available and the pool is below the maximum size, a new one will be created
 
-#### options = { priority?, timeoutInMs? }
-
-| name        | type               | description                                                                 |
-| ----------- | ------------------ | --------------------------------------------------------------------------- |
-| priority    | `number`           | The priority for the request. The higher the number the higher the priority |
-| timeoutInMs | `number` or `null` | Time in milliseconds before the request times out                           |
+| Parameter           | Type               | Description                                                                 |
+| ------------------- | ------------------ | --------------------------------------------------------------------------- |
+| options.priority    | `number`           | The priority for the request. The higher the number the higher the priority |
+| options.timeoutInMs | `number` \| `null` | Time in milliseconds before the request times out                           |
 
 ```js
 const thingy = await pool.acquire();
@@ -174,6 +177,36 @@ Current pool state as a string
 pool.getState(); // 'STARTED'
 ```
 
+### pool.on(event, callback) → {this}
+
+| Parameter | Type                        | Description                                          |
+| --------- | --------------------------- | ---------------------------------------------------- |
+| event     | [`PoolEvent`](#Pool-Events) | The name of the event to listen for                  |
+| callback  | `function`                  | A function that can take the argument from the event |
+
+```js
+pool.on('poolDidStart', () => console.log('The pool has started!'));
+pool.on('poolDidStop', () => console.log('The pool has stopped!'));
+```
+
+This is how you could stop the pool if the factory isn't creating objects correctly
+
+```js
+let createErrorCount = 0;
+
+function handleFactoryCreateError(error) {
+  console.warn('An error occurred while trying to create an object');
+  console.log(error);
+  createErrorCount += 1;
+  if (createErrorCount > 5) {
+    console.error('Too many creation errors. Stopping the pool!');
+    pool.stop();
+  }
+}
+
+pool.on('factoryCreateError', handleFactoryCreateError);
+```
+
 ### pool.release(object) → {Promise\<void>}
 
 Returns the object back to the pool for future use
@@ -222,26 +255,31 @@ pool.stop();
 
 Use a pooled object with a callback and release to object automatically
 
-#### options = { priority?, timeoutInMs? }
-
-| name        | type               | description                                                                 |
-| ----------- | ------------------ | --------------------------------------------------------------------------- |
-| priority    | `number`           | The priority for the request. The higher the number the higher the priority |
-| timeoutInMs | `number` or `null` | Time in milliseconds before the request times out                           |
+| Parameter           | Type               | Description                                                                 |
+| ------------------- | ------------------ | --------------------------------------------------------------------------- |
+| callback            | `function`         | A function that takes a pooled object as an argument                        |
+| options.priority    | `number`           | The priority for the request. The higher the number the higher the priority |
+| options.timeoutInMs | `number` \| `null` | Time in milliseconds before the request times out                           |
 
 ```js
-const result = await pool.use(thingy => thingy.doSomethingAsync());
+const something = await pool.use(thingy => thingy.fetch('something'));
+console.log(`I fetched ${something}`);
+// or
+pool.use(async thingy => {
+  const something = await thingy.fetch('something');
+  console.log(`I fetched ${something}`);
+});
 ```
 
 ## Pool Info
 
 ```js
-pool.getInfo();
+const poolInfo = pool.getInfo();
 ```
 
-| property                  | type     | description                                                                                              |
+| Property                  | Type     | Description                                                                                              |
 | ------------------------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| available                 | `number` | Number of objects that a available for requests                                                          |
+| available                 | `number` | Number of objects that are available for requests                                                        |
 | beingCreated              | `number` | Number of objects being created                                                                          |
 | beingDestroyed            | `number` | Number of objects being destroyed. Not included in the total pool size                                   |
 | beingValidated            | `number` | Number of objects being validated. The sum of beingValidatedForDispatch and beingValidatedForReturn      |
@@ -255,23 +293,27 @@ pool.getInfo();
 
 ## Pool Events
 
+The pool is an event emitter and can emit the following events:
+
+| Name                 | Event Arguments | Description                                                                                |
+| -------------------- | --------------- | ------------------------------------------------------------------------------------------ |
+| factoryCreateError   | `error`         | An error ocurred while trying to create an object. Likely an error from factory.create     |
+| factoryDestroyError  | `error`         | An error ocurred while trying to destroy an object. Likely an error from factory.destroy   |
+| factoryValidateError | `error`         | An error ocurred while trying to validate an object. Likely an error from factory.validate |
+| poolDidStart         | `undefined`     | Pool has started and initial objects have been created to reach the minimum pool size      |
+| poolDidStop          | `undefined`     | Pool has stopped and all objects have been destroyed                                       |
+
 ## Factory
 
 ## Idle Objects
 
-## Custom Queue Implementations
-
-## Testing
-
-## Benchmarks
-
 ## Credits
 
-Thingy Pool was heavily inspired by [Generic Pool](https://www.npmjs.com/package/generic-pool). Thanks to [@coopernurse](https://github.com/coopernurse) and everyone that has contributed to the project.
+Thingy Pool was heavily inspired by [Generic Pool](https://www.npmjs.com/package/generic-pool). Thanks to [@coopernurse](https://github.com/coopernurse) and everyone that has contributed.
 
-Thanks [@vitomilana](https://github.com/vitomilana) for your continued interest in the project and helping the team stay on track.
+Thanks [@vitomilana](https://github.com/vitomilana) for your continued interest in this project and helping the team stay on track.
 
-This project was a way for me to learn more about programing. I really appreciate everyone out there asking and answering questions that end up helping people they will never meet.
+I built this as a way to learn more about programing. I really appreciate everyone out there asking and answering questions that are helping people they will never meet.
 
 Special Thanks:
 
@@ -281,7 +323,7 @@ Special Thanks:
 - [Airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
 - [JavaScript Algorithms and Data Structures](https://github.com/trekhleb/javascript-algorithms)
 
-The above people and repositories really helped me while working on this. I'm including them here to say thanks and maybe someone else will find them useful.
+The above people and repositories really helped me while working on this. I'm including them to say thanks and maybe someone else will find them useful.
 
 ## License
 

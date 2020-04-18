@@ -1,23 +1,40 @@
 const { EventEmitter } = require('events');
-const { PriorityQueue, DoubleEndedQueue } = require('./queues');
 const PooledObject = require('./PooledObject');
 const PoolOptions = require('./PoolOptions');
 const PoolRequest = require('./PoolRequest');
-const { toSafePromise, validateFactory, validateObjectQueue, validateRequestQueue } = require('./utils');
-const { ErrorMessages, TimeoutError } = require('./errors');
 const { PoolStates, PoolEvents } = require('./constants');
+const { ErrorMessages, TimeoutError } = require('./errors');
+const { PriorityQueue, DoubleEndedQueue } = require('./queues');
+const { toSafePromise, validateFactory, validateObjectQueue, validateRequestQueue } = require('./utils');
 
 // does nothing aka noop
 const doNothing = () => {};
 
 /**
+ * @example
+ * const Pool = require('thingy-pool');
+ * const factory = require('./myObjectFactory')
+ *
+ * const options = { maxSize: 5 }
+ * const pool = new Pool(factory, options)
+ *
+ * async function fetchSomething() { // or const fetchSomething = async () => {
+ *  const thingy = await pool.acquire()
+ *  const result = await thingy.fetchSomething()
+ *  pool.release(thingy)
+ *  return result
+ * }
+ *
+ * fetchSomething().then(result => console.log(result)) // something
+ * fetchSomething().then(result => console.log(result)) // something
+ *
  * @extends {EventEmitter}
  * @template {object} T
  */
 class Pool extends EventEmitter {
   /**
    * @param {Factory<T>} factory Factory used by the pool
-   * @param {Partial<Options>} [options] Options for the pool
+   * @param {Partial<Options>} [options=Options] Options for the pool
    * @param {Object} [injectables] Dependencies that can be injected into the pool. For using custom queue implementations as well as provide additional
    * functionality for testing
    * @param {ObjectQueue<PooledObject<T>>} [injectables.objectQueue=new DoubleEndedQueue()] Queue that stores the available pooled objects. See {@link ObjectQueue} for more info
@@ -371,9 +388,9 @@ class Pool extends EventEmitter {
       this._addToAvailable(pooledObject);
     } catch (error) {
       /**
-       * An error ocurred while trying to create an object. Likely an error from factory.create
+       * An error occurred while trying to create an object. Likely an error from factory.create
        * @event Pool#factoryCreateError
-       * @param {Error} error The error that ocurred
+       * @param {Error} error The error that occurred
        */
       this.emit(PoolEvents.CREATE_ERROR, error);
       // keeps the pool going and retries the object creation if needed
@@ -398,9 +415,9 @@ class Pool extends EventEmitter {
       return true;
     } catch (error) {
       /**
-       * An error ocurred while trying to destroy an object. Likely an error from factory.destroy
+       * An error occurred while trying to destroy an object. Likely an error from factory.destroy
        * @event Pool#factoryDestroyError
-       * @param {Error} error The error that ocurred
+       * @param {Error} error The error that occurred
        */
       this.emit(PoolEvents.DESTROY_ERROR, error);
       // because there was an error, we assume the object wasn't correctly destroyed
@@ -425,9 +442,9 @@ class Pool extends EventEmitter {
       return !!isValid;
     } catch (error) {
       /**
-       * An error ocurred while trying to validate an object. Likely an error from factory.validate
+       * An error occurred while trying to validate an object. Likely an error from factory.validate
        * @event Pool#factoryValidateError
-       * @param {Error} error The error that ocurred
+       * @param {Error} error The error that occurred
        */
       this.emit(PoolEvents.VALIDATE_ERROR, error);
       // because there was an error, we consider the object invalid
@@ -493,7 +510,7 @@ class Pool extends EventEmitter {
     this._state = PoolStates.STARTED;
 
     /**
-     * Pool has started and initial objects have been created
+     * Pool has started and initial objects have been created to reach the minimum pool size
      * @event Pool#poolDidStart
      */
     // should we attach anything to this event? and should we possibly emit events on the next loop?
@@ -613,7 +630,7 @@ class Pool extends EventEmitter {
   /**
    * @typedef {Object} PoolInfo
    * @alias PoolInfo
-   * @property {number} available Number of objects that a available for requests
+   * @property {number} available Number of objects that are available for requests
    * @property {number} beingCreated Number of objects being created
    * @property {number} beingDestroyed Number of objects being destroyed. Not included in the total pool size
    * @property {number} beingValidated Number of objects being validated. The sum of beingValidatedForDispatch and beingValidatedForReturn

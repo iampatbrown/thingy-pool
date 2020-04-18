@@ -1,9 +1,12 @@
+import { EventEmitter } from 'events';
+
 type PoolState = 'CREATED' | 'STARTING' | 'STARTED' | 'SHUTTING_DOWN' | 'STOPPED';
 
 type ObjectState = 'CREATED' | 'AVAILABLE' | 'RETURNED' | 'VALIDATING' | 'BORROWED' | 'INVALID' | 'DESTROYED';
 
 type PoolEvent = 'poolDidStart' | 'poolDidStop' | 'factoryCreateError' | 'factoryValidateError' | 'factoryDestroyError';
 
+/** Factory used by the pool */
 interface Factory<T extends Object> {
   create(): Promise<T> | T;
   destroy(object: T): Promise<void> | void;
@@ -66,7 +69,7 @@ interface RequestOptions {
 }
 
 interface PoolInfo {
-  /** Number of objects that a available for requests */
+  /** Number of objects that are available for requests */
   available: number;
   /** Number of objects being created */
   beingCreated: number;
@@ -113,24 +116,14 @@ declare class PoolRequest<T extends Object> {
   resolve(object: T): void;
 }
 
-interface SafePromiseResult<T> {
-  result: T;
-  error?: undefined;
-}
-interface SafePromiseError {
-  result?: undefined;
-  error: Error;
-}
-
-type SafePromise<T> = Promise<SafePromiseResult<T> | SafePromiseError>;
-
-interface IntegerRange {
-  min?: number;
-  max?: number;
-}
-
-declare class Pool<T extends Object> {
-  constructor(factory: Factory<T>, options: Partial<Options>, injectables: Injectables<T>);
+declare class Pool<T extends Object> extends EventEmitter {
+  /**
+   * @param factory Factory used by the pool
+   * @param options Options for the pool
+   * @param injectables Dependencies that can be injected into the pool. For using custom queue implementations as well as provide additional
+   * functionality for testing
+   */
+  constructor(factory: Factory<T>, options?: Partial<Options>, injectables?: Injectables<T>);
   /** Request an object from the Pool. If no objects are available and the pool is below the maximum size, a new one will be created */
   acquire({ priority, timeoutInMs }?: RequestOptions): Promise<T>;
   /** Destroys all pooled objects that are currently available. Resolves after objects have been destroyed */
@@ -159,4 +152,10 @@ declare class Pool<T extends Object> {
   use<R>(callback: (item: T) => R, { priority, timeoutInMs }?: RequestOptions): Promise<R>;
   /**  */
   on(event: PoolEvent, listener: (...args: any[]) => void): this;
+}
+
+export = Pool;
+
+declare namespace Pool {
+  export { PooledObject, PoolRequest };
 }
