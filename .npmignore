@@ -1,0 +1,14 @@
+# NPM Ignore
+.eslintrc.json
+.gitignore
+.prettierrc
+.vscode/
+benchmarks/
+docs/
+examples/
+jsdoc.json
+node_modules/
+test/
+tsconfig.json
+typings-dev
+wallaby.js

@@ -92,7 +92,7 @@ describe('PoolOptions.maxPendingRequests', () => {
 
 describe.each([
   'defaultTimeoutInMs',
-  'checkIdleIntervalInMs',
+  'idleCheckIntervalInMs',
   'maxIdleToRemove',
   'softIdleTimeInMs',
   'hardIdleTimeInMs',
@@ -130,9 +130,9 @@ describe.each(['shouldAutoStart', 'shouldValidateOnDispatch', 'shouldValidateOnR
   },
 );
 
-describe('PoolOptions.checkIdleIntervalInMs', () => {
+describe('PoolOptions.idleCheckIntervalInMs', () => {
   it('should throw if eviction enabled without any Idle Time set', () => {
-    expect(() => new PoolOptions({ checkIdleIntervalInMs: 1, softIdleTimeInMs: null, hardIdleTimeInMs: null })).toThrow(
+    expect(() => new PoolOptions({ idleCheckIntervalInMs: 1, softIdleTimeInMs: null, hardIdleTimeInMs: null })).toThrow(
       ReferenceError,
     );
   });

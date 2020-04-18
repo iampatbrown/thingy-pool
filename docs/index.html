@@ -62,14 +62,14 @@
 
 
     <section class="readme usertext">
-        <article><h1>Thingy Pool</h1>
-<h2>About</h2>
+        <article><h1 id="thingy-pool">Thingy Pool</h1>
+<h2 id="about">About</h2>
 <p>A promise-based object pool for <a href="https://nodejs.org/">Node.js</a>.</p>
-<h2>Installation</h2>
+<h2 id="installation">Installation</h2>
 <pre class="prettyprint source lang-sh"><code>$ npm install thingy-pool
 </code></pre>
-<h2>Creating a factory</h2>
-<p>The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed.</p>
+<h2 id="creating-a-factory">Creating a factory</h2>
+<p>The factory is responsible for creating and destroying the objects you want to pool. The factory can also validate the objects if needed.</p>
 <pre class="prettyprint source lang-js"><code>const Api = require('some-api');
 
 const factory = {
@@ -89,7 +89,7 @@ const factory = {
   },
 };
 </code></pre>
-<h2>Creating a pool</h2>
+<h2 id="creating-a-pool">Creating a pool</h2>
 <p>See <a href="#Options">Options</a> for a complete list of options</p>
 <pre class="prettyprint source lang-js"><code>const Pool = require('thingy-pool');
 const factory = require('./myObjectFactory');
@@ -97,7 +97,7 @@ const factory = require('./myObjectFactory');
 const options = { minSize: 2, maxSize: 5, shouldValidateOnDispatch: true };
 const pool = new Pool(factory, options);
 </code></pre>
-<h2>Using the pool</h2>
+<h2 id="using-the-pool">Using the pool</h2>
 <pre class="prettyprint source lang-js"><code>// or const fetchSomething = async () => {
 async function fetchAndPrint(something) {
   const thingy = await pool.acquire();
@@ -109,7 +109,7 @@ async function fetchAndPrint(something) {
 fetchAndPrint('something'); // fetched something: result
 fetchAndPrint('somethingElse'); // fetched somethingElse: result
 </code></pre>
-<p>Objects must be released back to the pool after they are used. Alternatively, a callback function can be given to <code>pool.use</code> and the pool will take care of acquiring and releasing the object.</p>
+<p>Objects must be released back to the pool after they are used. Alternatively, pool.use() can be passed a callback.</p>
 <pre class="prettyprint source lang-js"><code>async function fetchAndPrint(something) {
   const result = await pool.use(thingy => thingy.fetch(something));
   console.log(`fetched ${something}: ${result}`);
@@ -118,111 +118,115 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 fetchAndPrint('something'); // fetched something: result
 fetchAndPrint('somethingElse'); // fetched somethingElse: result
 </code></pre>
-<h2>Options</h2>
+<h2 id="options">Options</h2>
 <table>
 <thead>
 <tr>
 <th>Property</th>
-<th>Type</th>
-<th>Default</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>minSize</td>
-<td><code>number</code></td>
-<td>0</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center"><code>0</code></td>
 <td>The minimum number of objects the pool will try to maintain including borrowed objects</td>
 </tr>
 <tr>
 <td>maxSize</td>
-<td><code>number</code></td>
-<td>1</td>
+<td style="text-align:center">number</td>
+<td style="text-align:center"><code>1</code></td>
 <td>The maximum number of objects the pool can manage including objects being created</td>
 </tr>
 <tr>
 <td>defaultTimeoutInMs</td>
-<td><code>number</code> | <code>null</code></td>
-<td>30000</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>30000</code></td>
 <td>The default time in milliseconds requests for objects will time out</td>
 </tr>
 <tr>
 <td>maxPendingRequests</td>
-<td><code>number</code> | <code>null</code></td>
-<td>null</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>null</code></td>
 <td>The number of requests that can be queued if the pool is at the maximum size and has no objects available</td>
 </tr>
 <tr>
-<td>checkIdleIntervalInMs</td>
-<td><code>number</code> | <code>null</code></td>
-<td>null</td>
-<td>The interval the pool checks for and removes idle objects</td>
+<td>idleCheckIntervalInMs</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>null</code></td>
+<td>The interval the pool checks for and removes idle objects. Requires <code>softIdleTimeInMs</code> or <code>hardIdleTimeInMs</code></td>
 </tr>
 <tr>
 <td>maxIdleToRemove</td>
-<td><code>number</code> | <code>null</code></td>
-<td>null</td>
-<td>The max objects that can be removed each time the pool checks for idle objects</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>null</code></td>
+<td>The max objects that can be removed each time the pool checks for idle objects. <code>null</code> will check all objects</td>
 </tr>
 <tr>
 <td>softIdleTimeInMs</td>
-<td><code>number</code> | <code>null</code></td>
-<td>null</td>
-<td>The amount of time an object must be idle before being eligible for soft removal</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>null</code></td>
+<td>The amount of time an object must be idle before being eligible for soft removal. Will not remove object if available objects is at or below minSize</td>
 </tr>
 <tr>
 <td>hardIdleTimeInMs</td>
-<td><code>number</code> | <code>null</code></td>
-<td>null</td>
-<td>The amount of time an object must be idle before being eligible for hard removal</td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>null</code></td>
+<td>The amount of time an object must be idle before being eligible for hard removal. Removes object regardless of minSize</td>
 </tr>
 <tr>
 <td>shouldAutoStart</td>
-<td><code>boolean</code></td>
-<td>true</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>true</code></td>
 <td>Should the pool start creating objects to reach the minimum size as soon as it is created?</td>
 </tr>
 <tr>
 <td>shouldValidateOnDispatch</td>
-<td><code>boolean</code></td>
-<td>false</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>false</code></td>
 <td>Should the pool check objects with factory.validate before dispatching them to requests?</td>
 </tr>
 <tr>
 <td>shouldValidateOnReturn</td>
-<td><code>boolean</code></td>
-<td>false</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>false</code></td>
 <td>Should the pool check objects with factory.validate when they are being returned?</td>
 </tr>
 <tr>
 <td>shouldUseFifo</td>
-<td><code>boolean</code></td>
-<td>true</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>true</code></td>
 <td>Should the pool dispatch objects using first in first out (FIFO)?</td>
 </tr>
 </tbody>
 </table>
-<h2>Pool Methods</h2>
-<h3>pool.acquire(options?) → {Promise&lt;T&gt;}</h3>
+<p>Options with type <code>number</code> must be positive integers with the exception of <code>minSize</code> and <code>maxPendingRequests</code> which also accept <code>0</code>. Think of <code>null</code> more like <code>None</code>. This is mainly to distinguish between <code>maxPendingRequests: null</code> which does not limit pending requests and <code>maxPendingRequests: 0</code> which will reject requests if there a no objects available and no additional objects can be created. Not sure if that's useful...</p>
+<h2 id="pool-methods">Pool Methods</h2>
+<h3 id="pool.acquire(options%3F)-%E2%86%92-%7Bpromise%3Ct%3E%7D">pool.acquire(options?) → {Promise&lt;T&gt;}</h3>
 <p>Request an object from the Pool. If no objects are available and the pool is below the maximum size, a new one will be created</p>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>options.priority</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
+<td style="text-align:center"><code>0</code></td>
 <td>The priority for the request. The higher the number the higher the priority</td>
 </tr>
 <tr>
 <td>options.timeoutInMs</td>
-<td><code>number</code> | <code>null</code></td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>30000</code></td>
 <td>Time in milliseconds before the request times out</td>
 </tr>
 </tbody>
@@ -238,58 +242,58 @@ const thingy = await pool.acquire({ timeoutInMs: 5000 });
 // With custom priority and timeout
 const thingy = await pool.acquire({ priority: 10, timeoutInMs: 1000 });
 </code></pre>
-<h3>pool.clear() → {Promise&lt;void&gt;}</h3>
+<h3 id="pool.clear()-%E2%86%92-%7Bpromise%3Cvoid%3E%7D">pool.clear() → {Promise&lt;void&gt;}</h3>
 <p>Destroys all pooled objects that are currently available. Resolves after objects have been destroyed</p>
 <pre class="prettyprint source lang-js"><code>pool.getInfo(); // { size: 5, available: 2, borrowed: 3, ...moreInfo }
 await pool.clear();
 pool.getInfo(); // { size: 3, available: 0, borrowed: 3, ...moreInfo }
 </code></pre>
-<h3>pool.getInfo() → {<a href="#Pool-Info">PoolInfo</a>}</h3>
+<h3 id="pool.getinfo()-%E2%86%92-%7Bpoolinfo%7D">pool.getInfo() → {<a href="#Pool-Info">PoolInfo</a>}</h3>
 <p>Current object counts and pool's state</p>
 <pre class="prettyprint source lang-js"><code>pool.getInfo().available; // 2
 // or
 const { available, borrowed, size, state } = pool.getInfo();
 </code></pre>
-<h3>pool.getOptions() → {<a href="#Options">Options</a>}</h3>
+<h3 id="pool.getoptions()-%E2%86%92-%7Boptions%7D">pool.getOptions() → {<a href="#Options">Options</a>}</h3>
 <p>Current pool options</p>
 <pre class="prettyprint source lang-js"><code>pool.getOptions().defaultTimeoutInMs; // 30000
 // or
 const { maxSize, maxPendingRequests } = pool.getOptions();
 </code></pre>
-<h3>pool.getSize() → {number}</h3>
+<h3 id="pool.getsize()-%E2%86%92-%7Bnumber%7D">pool.getSize() → {number}</h3>
 <p>Total number of objects in the pool. Includes objects being created and excludes objects being destroyed</p>
 <pre class="prettyprint source lang-js"><code>pool.getSize(); // 3
 </code></pre>
-<h3>pool.has(object) → {boolean}</h3>
+<h3 id="pool.has(object)-%E2%86%92-%7Bboolean%7D">pool.has(object) → {boolean}</h3>
 <p>Checks if the object is part of the pool</p>
 <pre class="prettyprint source lang-js"><code>pool.has(thingy); // true
 </code></pre>
-<h3>pool.isBorrowed(object) → {boolean}</h3>
+<h3 id="pool.isborrowed(object)-%E2%86%92-%7Bboolean%7D">pool.isBorrowed(object) → {boolean}</h3>
 <p>Checks if the object is currently borrowed</p>
 <pre class="prettyprint source lang-js"><code>pool.isBorrowed(thingy); // true
 </code></pre>
-<h3>pool.getState() → {PoolState}</h3>
+<h3 id="pool.getstate()-%E2%86%92-%7Bpoolstate%7D">pool.getState() → {PoolState}</h3>
 <p>Current pool state as a string</p>
 <pre class="prettyprint source lang-js"><code>pool.getState(); // 'STARTED'
 </code></pre>
-<h3>pool.on(event, callback) → {this}</h3>
+<h3 id="pool.on(event%2C-callback)-%E2%86%92-%7Bthis%7D">pool.on(event, callback) → {this}</h3>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
+<th style="text-align:center">Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>event</td>
-<td><a href="#Pool-Events"><code>PoolEvent</code></a></td>
+<td style="text-align:center"><a href="#Pool-Events">PoolEvent</a></td>
 <td>The name of the event to listen for</td>
 </tr>
 <tr>
 <td>callback</td>
-<td><code>function</code></td>
+<td style="text-align:center">function</td>
 <td>A function that can take the argument from the event</td>
 </tr>
 </tbody>
@@ -312,7 +316,7 @@ function handleFactoryCreateError(error) {
 
 pool.on('factoryCreateError', handleFactoryCreateError);
 </code></pre>
-<h3>pool.release(object) → {Promise&lt;void&gt;}</h3>
+<h3 id="pool.release(object)-%E2%86%92-%7Bpromise%3Cvoid%3E%7D">pool.release(object) → {Promise&lt;void&gt;}</h3>
 <p>Returns the object back to the pool for future use</p>
 <pre class="prettyprint source lang-js"><code>const thingy = await pool.acquire();
 pool.getInfo(); // { size: 5, available: 2, borrowed: 3, ...moreInfo }
@@ -320,7 +324,7 @@ const result = await thingy.doSomethingAsync();
 await pool.release(thingy);
 pool.getInfo(); // { size: 5, available: 3, borrowed: 2, ...moreInfo }
 </code></pre>
-<h3>pool.releaseAndDestroy(object) → {Promise&lt;void&gt;}</h3>
+<h3 id="pool.releaseanddestroy(object)-%E2%86%92-%7Bpromise%3Cvoid%3E%7D">pool.releaseAndDestroy(object) → {Promise&lt;void&gt;}</h3>
 <p>Returns the object to the pool and destroys it</p>
 <pre class="prettyprint source lang-js"><code>const thingy = await pool.acquire();
 pool.getInfo(); // { size: 5, available: 2, borrowed: 3, ...moreInfo }
@@ -328,164 +332,172 @@ const result = await thingy.doSomethingAsync();
 await pool.releaseAndDestroy(thingy);
 pool.getInfo(); // { size: 4, available: 2, borrowed: 2, ...moreInfo }
 </code></pre>
-<h3>pool.start() → {Promise&lt;void&gt;}</h3>
+<h3 id="pool.start()-%E2%86%92-%7Bpromise%3Cvoid%3E%7D">pool.start() → {Promise&lt;void&gt;}</h3>
 <p>Starts the pool</p>
 <pre class="prettyprint source lang-js"><code>await pool.start();
 const thingy = await pool.acquire();
 </code></pre>
-<h3>pool.stop() → {Promise&lt;void&gt;}</h3>
+<h3 id="pool.stop()-%E2%86%92-%7Bpromise%3Cvoid%3E%7D">pool.stop() → {Promise&lt;void&gt;}</h3>
 <p>Stops the pool</p>
 <pre class="prettyprint source lang-js"><code>const thingy = await pool.acquire();
 const finalResult = await thingy.doSomethingAsync();
 pool.release(thingy);
 pool.stop();
 </code></pre>
-<h3>pool.use(callback, options?) → {Promise&lt;any&gt;}</h3>
+<h3 id="pool.use(callback%2C-options%3F)-%E2%86%92-%7Bpromise%3Cany%3E%7D">pool.use(callback, options?) → {Promise&lt;any&gt;}</h3>
 <p>Use a pooled object with a callback and release to object automatically</p>
 <table>
 <thead>
 <tr>
 <th>Parameter</th>
-<th>Type</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">Default</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>callback</td>
-<td><code>function</code></td>
+<td style="text-align:center">function</td>
+<td style="text-align:center"></td>
 <td>A function that takes a pooled object as an argument</td>
 </tr>
 <tr>
 <td>options.priority</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
+<td style="text-align:center"><code>0</code></td>
 <td>The priority for the request. The higher the number the higher the priority</td>
 </tr>
 <tr>
 <td>options.timeoutInMs</td>
-<td><code>number</code> | <code>null</code></td>
+<td style="text-align:center">number | null</td>
+<td style="text-align:center"><code>30000</code></td>
 <td>Time in milliseconds before the request times out</td>
 </tr>
 </tbody>
 </table>
 <pre class="prettyprint source lang-js"><code>const something = await pool.use(thingy => thingy.fetch('something'));
 console.log(`I fetched ${something}`);
+
 // or
+
 pool.use(async thingy => {
   const something = await thingy.fetch('something');
   console.log(`I fetched ${something}`);
 });
+
+// with custom options
+const something = await pool.use(thingy => thingy.fetch('something'), { priority: 10, timeoutInMs: 1000 });
+console.log(`I fetched ${something}`);
 </code></pre>
-<h2>Pool Info</h2>
+<h2 id="pool-info">Pool Info</h2>
 <pre class="prettyprint source lang-js"><code>const poolInfo = pool.getInfo();
 </code></pre>
 <table>
 <thead>
 <tr>
 <th>Property</th>
-<th>Type</th>
+<th style="text-align:center">Type</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>available</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects that are available for requests</td>
 </tr>
 <tr>
 <td>beingCreated</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects being created</td>
 </tr>
 <tr>
 <td>beingDestroyed</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects being destroyed. Not included in the total pool size</td>
 </tr>
 <tr>
 <td>beingValidated</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects being validated. The sum of beingValidatedForDispatch and beingValidatedForReturn</td>
 </tr>
 <tr>
 <td>beingValidatedForDispatch</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects being validated before attempting to dispatch to a request</td>
 </tr>
 <tr>
 <td>beingValidatedForReturn</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects being validated before being returned to available objects</td>
 </tr>
 <tr>
 <td>pendingRequests</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of requests waiting for an object</td>
 </tr>
 <tr>
 <td>borrowed</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects currently borrowed</td>
 </tr>
 <tr>
 <td>notBorrowed</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Number of objects not currently borrowed</td>
 </tr>
 <tr>
 <td>size</td>
-<td><code>number</code></td>
+<td style="text-align:center">number</td>
 <td>Total number of objects in the pool. Includes objects being created and excludes objects being destroyed</td>
 </tr>
 <tr>
 <td>state</td>
-<td><code>string</code></td>
+<td style="text-align:center">string</td>
 <td>The current pool state</td>
 </tr>
 </tbody>
 </table>
-<h2>Pool Events</h2>
+<h2 id="pool-events">Pool Events</h2>
 <p>The pool is an event emitter and can emit the following events:</p>
 <table>
 <thead>
 <tr>
 <th>Name</th>
-<th>Event Arguments</th>
+<th style="text-align:center">Arguments</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>factoryCreateError</td>
-<td><code>error</code></td>
+<td style="text-align:center"><code>error</code></td>
 <td>An error ocurred while trying to create an object. Likely an error from factory.create</td>
 </tr>
 <tr>
 <td>factoryDestroyError</td>
-<td><code>error</code></td>
+<td style="text-align:center"><code>error</code></td>
 <td>An error ocurred while trying to destroy an object. Likely an error from factory.destroy</td>
 </tr>
 <tr>
 <td>factoryValidateError</td>
-<td><code>error</code></td>
+<td style="text-align:center"><code>error</code></td>
 <td>An error ocurred while trying to validate an object. Likely an error from factory.validate</td>
 </tr>
 <tr>
 <td>poolDidStart</td>
-<td><code>undefined</code></td>
+<td style="text-align:center"></td>
 <td>Pool has started and initial objects have been created to reach the minimum pool size</td>
 </tr>
 <tr>
 <td>poolDidStop</td>
-<td><code>undefined</code></td>
+<td style="text-align:center"></td>
 <td>Pool has stopped and all objects have been destroyed</td>
 </tr>
 </tbody>
 </table>
-<h2>Factory</h2>
-<h2>Idle Objects</h2>
-<h2>Credits</h2>
+<h2 id="credits">Credits</h2>
 <p>Thingy Pool was heavily inspired by <a href="https://www.npmjs.com/package/generic-pool">Generic Pool</a>. Thanks to <a href="https://github.com/coopernurse">@coopernurse</a> and everyone that has contributed.</p>
 <p>Thanks <a href="https://github.com/vitomilana">@vitomilana</a> for your continued interest in this project and helping the team stay on track.</p>
 <p>I built this as a way to learn more about programing. I really appreciate everyone out there asking and answering questions that are helping people they will never meet.</p>
@@ -498,7 +510,7 @@ pool.use(async thingy => {
 <li><a href="https://github.com/trekhleb/javascript-algorithms">JavaScript Algorithms and Data Structures</a></li>
 </ul>
 <p>The above people and repositories really helped me while working on this. I'm including them to say thanks and maybe someone else will find them useful.</p>
-<h2>License</h2>
+<h2 id="license">License</h2>
 <p>Copyright 2020 <a href="https://github.com/iampatbrown">Pat Brown</a></p>
 <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
 <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
@@ -517,7 +529,7 @@ pool.use(async thingy => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat Apr 18 2020 12:41:32 GMT+1000 (Australian Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Sat Apr 18 2020 19:50:53 GMT+1000 (Australian Eastern Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

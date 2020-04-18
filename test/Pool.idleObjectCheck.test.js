@@ -9,7 +9,7 @@ afterEach(() => {
   jest.restoreAllMocks();
 });
 
-const setupForEviction = async (checkIdleIntervalInMs, maxIdleToRemove, softIdleTimeInMs, hardIdleTimeInMs) => {
+const setupForEviction = async (idleCheckIntervalInMs, maxIdleToRemove, softIdleTimeInMs, hardIdleTimeInMs) => {
   let now = 0;
   const getTimestamp = jest.fn().mockImplementation(() => now);
 
@@ -22,7 +22,7 @@ const setupForEviction = async (checkIdleIntervalInMs, maxIdleToRemove, softIdle
   };
 
   const { pool, ...rest } = await setupForTestsAsync({
-    checkIdleIntervalInMs,
+    idleCheckIntervalInMs,
     maxIdleToRemove,
     softIdleTimeInMs,
     hardIdleTimeInMs,
@@ -36,7 +36,7 @@ const setupForEviction = async (checkIdleIntervalInMs, maxIdleToRemove, softIdle
 };
 
 describe('Pool.eviction', () => {
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: 1, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: 1, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
     it.each([
       [0, 5],
       [1, 10],
@@ -49,7 +49,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
     it.each([
       [0, 5],
       [2, 10],
@@ -62,7 +62,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: 3, softIdleTimeInMs: null, hardIdleTimeInMs: 12 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: 3, softIdleTimeInMs: null, hardIdleTimeInMs: 12 }', () => {
     it.each([
       [0, 5],
       [0, 10],
@@ -75,7 +75,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: 8, hardIdleTimeInMs: null }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: 8, hardIdleTimeInMs: null }', () => {
     it.each([
       [0, 5],
       [2, 10],
@@ -88,7 +88,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: 8, hardIdleTimeInMs: 16 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: 2, softIdleTimeInMs: 8, hardIdleTimeInMs: 16 }', () => {
     it.each([
       [0, 5],
       [2, 10],
@@ -101,7 +101,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: null, softIdleTimeInMs: 8, hardIdleTimeInMs: 16 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: null, softIdleTimeInMs: 8, hardIdleTimeInMs: 16 }', () => {
     it.each([
       [0, 5],
       [4, 10],
@@ -114,7 +114,7 @@ describe('Pool.eviction', () => {
     });
   });
 
-  describe('when { checkIdleIntervalInMs: 5, maxIdleToRemove: null, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
+  describe('when { idleCheckIntervalInMs: 5, maxIdleToRemove: null, softIdleTimeInMs: null, hardIdleTimeInMs: 8 }', () => {
     it.each([
       [0, 5],
       [6, 10],

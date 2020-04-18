@@ -34,7 +34,7 @@ describe('Pool.stop', () => {
   it('should unschedule the evictor if enabled', async () => {
     expect.assertions(3);
     jest.useFakeTimers();
-    const { pool } = await setupForTestsAsync({ checkIdleIntervalInMs: 10 });
+    const { pool } = await setupForTestsAsync({ idleCheckIntervalInMs: 10 });
     const { value: timeoutId } = setTimeout.mock.results[0];
     expect(clearTimeout).not.toBeCalled();
     pool.stop();

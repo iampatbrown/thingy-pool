@@ -355,9 +355,9 @@ class Pool extends EventEmitter {
    * Schedules idle object check
    */
   _scheduleIdleObjectCheck() {
-    // if checkIdleIntervalInMs is not set idle objects won't be checked... pretty sure i put this check here because i used to allow the option to be changed while the pool was running...
-    if (!this._options.checkIdleIntervalInMs) return;
-    this._nextIdleObjectCheck = setTimeout(this._tryRemoveIdleObjects, this._options.checkIdleIntervalInMs);
+    // if idleCheckIntervalInMs is not set idle objects won't be checked... pretty sure i put this check here because i used to allow the option to be changed while the pool was running...
+    if (!this._options.idleCheckIntervalInMs) return;
+    this._nextIdleObjectCheck = setTimeout(this._tryRemoveIdleObjects, this._options.idleCheckIntervalInMs);
   }
 
   /**

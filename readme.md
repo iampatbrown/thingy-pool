@@ -12,7 +12,7 @@ $ npm install thingy-pool
 
 ## Creating a factory
 
-The factory is responsible for creating and destroying the objects being pooled. The factory can also validate the objects if needed.
+The factory is responsible for creating and destroying the objects you want to pool. The factory can also validate the objects if needed.
 
 ```js
 const Api = require('some-api');
@@ -62,7 +62,7 @@ fetchAndPrint('something'); // fetched something: result
 fetchAndPrint('somethingElse'); // fetched somethingElse: result
 ```
 
-Objects must be released back to the pool after they are used. Alternatively, a callback function can be given to `pool.use` and the pool will take care of acquiring and releasing the object.
+Objects must be released back to the pool after they are used. Alternatively, pool.use() can be passed a callback.
 
 ```js
 async function fetchAndPrint(something) {
@@ -76,20 +76,22 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 
 ## Options
 
-| Property                 | Type               | Default | Description                                                                                               |
-| ------------------------ | ------------------ | ------- | --------------------------------------------------------------------------------------------------------- |
-| minSize                  | `number`           | 0       | The minimum number of objects the pool will try to maintain including borrowed objects                    |
-| maxSize                  | `number`           | 1       | The maximum number of objects the pool can manage including objects being created                         |
-| defaultTimeoutInMs       | `number` \| `null` | 30000   | The default time in milliseconds requests for objects will time out                                       |
-| maxPendingRequests       | `number` \| `null` | null    | The number of requests that can be queued if the pool is at the maximum size and has no objects available |
-| checkIdleIntervalInMs    | `number` \| `null` | null    | The interval the pool checks for and removes idle objects                                                 |
-| maxIdleToRemove          | `number` \| `null` | null    | The max objects that can be removed each time the pool checks for idle objects                            |
-| softIdleTimeInMs         | `number` \| `null` | null    | The amount of time an object must be idle before being eligible for soft removal                          |
-| hardIdleTimeInMs         | `number` \| `null` | null    | The amount of time an object must be idle before being eligible for hard removal                          |
-| shouldAutoStart          | `boolean`          | true    | Should the pool start creating objects to reach the minimum size as soon as it is created?                |
-| shouldValidateOnDispatch | `boolean`          | false   | Should the pool check objects with factory.validate before dispatching them to requests?                  |
-| shouldValidateOnReturn   | `boolean`          | false   | Should the pool check objects with factory.validate when they are being returned?                         |
-| shouldUseFifo            | `boolean`          | true    | Should the pool dispatch objects using first in first out (FIFO)?                                         |
+| Property                 |      Type      | Default | Description                                                                                                                                          |
+| ------------------------ | :------------: | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| minSize                  |     number     |   `0`   | The minimum number of objects the pool will try to maintain including borrowed objects                                                               |
+| maxSize                  |     number     |   `1`   | The maximum number of objects the pool can manage including objects being created                                                                    |
+| defaultTimeoutInMs       | number \| null | `30000` | The default time in milliseconds requests for objects will time out                                                                                  |
+| maxPendingRequests       | number \| null | `null`  | The number of requests that can be queued if the pool is at the maximum size and has no objects available                                            |
+| idleCheckIntervalInMs    | number \| null | `null`  | The interval the pool checks for and removes idle objects. Requires `softIdleTimeInMs` or `hardIdleTimeInMs`                                         |
+| maxIdleToRemove          | number \| null | `null`  | The max objects that can be removed each time the pool checks for idle objects. `null` will check all objects                                        |
+| softIdleTimeInMs         | number \| null | `null`  | The amount of time an object must be idle before being eligible for soft removal. Will not remove object if available objects is at or below minSize |
+| hardIdleTimeInMs         | number \| null | `null`  | The amount of time an object must be idle before being eligible for hard removal. Removes object regardless of minSize                               |
+| shouldAutoStart          |    boolean     | `true`  | Should the pool start creating objects to reach the minimum size as soon as it is created?                                                           |
+| shouldValidateOnDispatch |    boolean     | `false` | Should the pool check objects with factory.validate before dispatching them to requests?                                                             |
+| shouldValidateOnReturn   |    boolean     | `false` | Should the pool check objects with factory.validate when they are being returned?                                                                    |
+| shouldUseFifo            |    boolean     | `true`  | Should the pool dispatch objects using first in first out (FIFO)?                                                                                    |
+
+Options with type `number` must be positive integers with the exception of `minSize` and `maxPendingRequests` which also accept `0`. Think of `null` more like `None`. This is mainly to distinguish between `maxPendingRequests: null` which does not limit pending requests and `maxPendingRequests: 0` which will reject requests if there a no objects available and no additional objects can be created. Not sure if that's useful...
 
 ## Pool Methods
 
@@ -97,10 +99,10 @@ fetchAndPrint('somethingElse'); // fetched somethingElse: result
 
 Request an object from the Pool. If no objects are available and the pool is below the maximum size, a new one will be created
 
-| Parameter           | Type               | Description                                                                 |
-| ------------------- | ------------------ | --------------------------------------------------------------------------- |
-| options.priority    | `number`           | The priority for the request. The higher the number the higher the priority |
-| options.timeoutInMs | `number` \| `null` | Time in milliseconds before the request times out                           |
+| Parameter           |      Type      | Default | Description                                                                 |
+| ------------------- | :------------: | :-----: | --------------------------------------------------------------------------- |
+| options.priority    |     number     |   `0`   | The priority for the request. The higher the number the higher the priority |
+| options.timeoutInMs | number \| null | `30000` | Time in milliseconds before the request times out                           |
 
 ```js
 const thingy = await pool.acquire();
@@ -179,10 +181,10 @@ pool.getState(); // 'STARTED'
 
 ### pool.on(event, callback) → {this}
 
-| Parameter | Type                        | Description                                          |
-| --------- | --------------------------- | ---------------------------------------------------- |
-| event     | [`PoolEvent`](#Pool-Events) | The name of the event to listen for                  |
-| callback  | `function`                  | A function that can take the argument from the event |
+| Parameter |           Type            | Description                                          |
+| --------- | :-----------------------: | ---------------------------------------------------- |
+| event     | [PoolEvent](#Pool-Events) | The name of the event to listen for                  |
+| callback  |         function          | A function that can take the argument from the event |
 
 ```js
 pool.on('poolDidStart', () => console.log('The pool has started!'));
@@ -255,20 +257,26 @@ pool.stop();
 
 Use a pooled object with a callback and release to object automatically
 
-| Parameter           | Type               | Description                                                                 |
-| ------------------- | ------------------ | --------------------------------------------------------------------------- |
-| callback            | `function`         | A function that takes a pooled object as an argument                        |
-| options.priority    | `number`           | The priority for the request. The higher the number the higher the priority |
-| options.timeoutInMs | `number` \| `null` | Time in milliseconds before the request times out                           |
+| Parameter           |      Type      | Default | Description                                                                 |
+| ------------------- | :------------: | :-----: | --------------------------------------------------------------------------- |
+| callback            |    function    |         | A function that takes a pooled object as an argument                        |
+| options.priority    |     number     |   `0`   | The priority for the request. The higher the number the higher the priority |
+| options.timeoutInMs | number \| null | `30000` | Time in milliseconds before the request times out                           |
 
 ```js
 const something = await pool.use(thingy => thingy.fetch('something'));
 console.log(`I fetched ${something}`);
+
 // or
+
 pool.use(async thingy => {
   const something = await thingy.fetch('something');
   console.log(`I fetched ${something}`);
 });
+
+// with custom options
+const something = await pool.use(thingy => thingy.fetch('something'), { priority: 10, timeoutInMs: 1000 });
+console.log(`I fetched ${something}`);
 ```
 
 ## Pool Info
@@ -277,35 +285,31 @@ pool.use(async thingy => {
 const poolInfo = pool.getInfo();
 ```
 
-| Property                  | Type     | Description                                                                                              |
-| ------------------------- | -------- | -------------------------------------------------------------------------------------------------------- |
-| available                 | `number` | Number of objects that are available for requests                                                        |
-| beingCreated              | `number` | Number of objects being created                                                                          |
-| beingDestroyed            | `number` | Number of objects being destroyed. Not included in the total pool size                                   |
-| beingValidated            | `number` | Number of objects being validated. The sum of beingValidatedForDispatch and beingValidatedForReturn      |
-| beingValidatedForDispatch | `number` | Number of objects being validated before attempting to dispatch to a request                             |
-| beingValidatedForReturn   | `number` | Number of objects being validated before being returned to available objects                             |
-| pendingRequests           | `number` | Number of requests waiting for an object                                                                 |
-| borrowed                  | `number` | Number of objects currently borrowed                                                                     |
-| notBorrowed               | `number` | Number of objects not currently borrowed                                                                 |
-| size                      | `number` | Total number of objects in the pool. Includes objects being created and excludes objects being destroyed |
-| state                     | `string` | The current pool state                                                                                   |
+| Property                  |  Type  | Description                                                                                              |
+| ------------------------- | :----: | -------------------------------------------------------------------------------------------------------- |
+| available                 | number | Number of objects that are available for requests                                                        |
+| beingCreated              | number | Number of objects being created                                                                          |
+| beingDestroyed            | number | Number of objects being destroyed. Not included in the total pool size                                   |
+| beingValidated            | number | Number of objects being validated. The sum of beingValidatedForDispatch and beingValidatedForReturn      |
+| beingValidatedForDispatch | number | Number of objects being validated before attempting to dispatch to a request                             |
+| beingValidatedForReturn   | number | Number of objects being validated before being returned to available objects                             |
+| pendingRequests           | number | Number of requests waiting for an object                                                                 |
+| borrowed                  | number | Number of objects currently borrowed                                                                     |
+| notBorrowed               | number | Number of objects not currently borrowed                                                                 |
+| size                      | number | Total number of objects in the pool. Includes objects being created and excludes objects being destroyed |
+| state                     | string | The current pool state                                                                                   |
 
 ## Pool Events
 
 The pool is an event emitter and can emit the following events:
 
-| Name                 | Event Arguments | Description                                                                                |
-| -------------------- | --------------- | ------------------------------------------------------------------------------------------ |
-| factoryCreateError   | `error`         | An error ocurred while trying to create an object. Likely an error from factory.create     |
-| factoryDestroyError  | `error`         | An error ocurred while trying to destroy an object. Likely an error from factory.destroy   |
-| factoryValidateError | `error`         | An error ocurred while trying to validate an object. Likely an error from factory.validate |
-| poolDidStart         | `undefined`     | Pool has started and initial objects have been created to reach the minimum pool size      |
-| poolDidStop          | `undefined`     | Pool has stopped and all objects have been destroyed                                       |
-
-## Factory
-
-## Idle Objects
+| Name                 | Arguments | Description                                                                                |
+| -------------------- | :-------: | ------------------------------------------------------------------------------------------ |
+| factoryCreateError   |  `error`  | An error ocurred while trying to create an object. Likely an error from factory.create     |
+| factoryDestroyError  |  `error`  | An error ocurred while trying to destroy an object. Likely an error from factory.destroy   |
+| factoryValidateError |  `error`  | An error ocurred while trying to validate an object. Likely an error from factory.validate |
+| poolDidStart         |           | Pool has started and initial objects have been created to reach the minimum pool size      |
+| poolDidStop          |           | Pool has stopped and all objects have been destroyed                                       |
 
 ## Credits
 

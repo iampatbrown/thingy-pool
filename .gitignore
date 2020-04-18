@@ -1,4 +1,7 @@
 node_modules
+benchmarks
+examples
+.vscode/
 package-lock.json
 **/*sandbox.js
 wallaby.js

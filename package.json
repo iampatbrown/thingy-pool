@@ -1,15 +1,29 @@
 {
   "name": "thingy-pool",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A promise-based object pool for Node.js",
-  "main": "./src/index.js",
-  "types": "./typings/index.d.ts",
-  "scripts": {
-    "test": "jest --watch",
-    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
-  },
   "author": "Pat Brown",
   "license": "MIT",
+  "keywords": [
+    "object pool",
+    "resource pool",
+    "worker pool",
+    "pool",
+    "pooling"
+  ],
+  "main": "./src/index.js",
+  "types": "./typings/index.d.ts",
+  "homepage": "https://github.com/iampatbrown/thingy-pool#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iampatbrown/thingy-pool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iampatbrown/thingy-pool/issues"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "devDependencies": {
     "@types/jest": "^24.9.1",
     "@types/node": "^13.9.5",
@@ -17,7 +31,7 @@
     "@typescript-eslint/parser": "^2.26.0",
     "benchmark": "^2.1.4",
     "better-docs": "^1.4.7",
-    "docdash": "github:iampatbrown/docdash#custom-style",
+    "docdash": "github:iampatbrown/docdash",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.9.0",
@@ -27,5 +41,9 @@
     "jsdoc": "^3.6.3",
     "jsdoc-autoprivate": "0.0.1",
     "prettier": "^1.19.1"
+  },
+  "scripts": {
+    "test": "jest",
+    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   }
 }

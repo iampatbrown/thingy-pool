@@ -1,7 +1,7 @@
 const resolveInMs = require('./resolveInMs');
 
 class TestFactory {
-  constructor(taskIntervalInMs = 2) {
+  constructor(taskIntervalInMs = 5) {
     this.taskIntervalInMs = taskIntervalInMs;
     this.runningTasks = 0;
     this.created = [];

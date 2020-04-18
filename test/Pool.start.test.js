@@ -83,7 +83,7 @@ describe('Pool.start', () => {
   it('should schedule the object evictor if enabled', async () => {
     expect.assertions(3);
     jest.useFakeTimers();
-    const { pool } = setupForTests({ shouldAutoStart: false, checkIdleIntervalInMs: 10 });
+    const { pool } = setupForTests({ shouldAutoStart: false, idleCheckIntervalInMs: 10 });
     expect(setTimeout).not.toBeCalled();
     await pool.start();
     expect(setTimeout).toBeCalledTimes(1);
@@ -94,7 +94,7 @@ describe('Pool.start', () => {
   it('should not schedule the idle object remover if disabled', async () => {
     expect.assertions(2);
     jest.useFakeTimers();
-    const { pool } = setupForTests({ shouldAutoStart: false, checkIdleIntervalInMs: null });
+    const { pool } = setupForTests({ shouldAutoStart: false, idleCheckIntervalInMs: null });
     expect(setTimeout).not.toBeCalled();
     await pool.start();
     expect(setTimeout).not.toBeCalled();
