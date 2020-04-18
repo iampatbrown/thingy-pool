@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "downlevelIteration": true,
     "rootDir": "src",
-    "types": ["node", "./typings"]
+    "types": ["node", "./typings-dev"]
   },
   "include": ["src/**/*.js"],
   "exclude": ["node_modules", "test/**/*.js", "docs", "benchmarks", "examples"]

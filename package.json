@@ -1,13 +1,12 @@
 {
   "name": "thingy-pool",
   "version": "1.0.0",
-  "description": "An object pool",
+  "description": "A promise-based object pool for Node.js",
   "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "types": "./typings/index.d.ts",
   "scripts": {
     "test": "jest --watch",
-    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json",
-    "better-docs": "./node_modules/.bin/jsdoc -c better-docs.json"
+    "docs": "./node_modules/.bin/jsdoc -c jsdoc.json"
   },
   "author": "Pat Brown",
   "license": "MIT",
@@ -18,18 +17,15 @@
     "@typescript-eslint/parser": "^2.26.0",
     "benchmark": "^2.1.4",
     "better-docs": "^1.4.7",
-    "docdash": "^1.2.0",
+    "docdash": "github:iampatbrown/docdash#custom-style",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-airbnb-typescript": "^7.2.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-jsdoc": "^23.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.9.0",
     "jsdoc": "^3.6.3",
     "jsdoc-autoprivate": "0.0.1",
-    "minami": "^1.2.3",
-    "node-fetch": "^2.6.0",
     "prettier": "^1.19.1"
   }
 }
