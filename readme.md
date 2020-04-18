@@ -127,7 +127,7 @@ await pool.clear();
 pool.getInfo(); // { size: 3, available: 0, borrowed: 3, ...moreInfo }
 ```
 
-### pool.getInfo() → {[PoolInfo](#pool-Info)}
+### pool.getInfo() → {[PoolInfo](#pool-info)}
 
 Current object counts and pool's state
 
