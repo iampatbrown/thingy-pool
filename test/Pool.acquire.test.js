@@ -49,6 +49,24 @@ describe('Pool.acquire', () => {
     }
   });
 
+  it('should timeout if factory cant create object', async () => {
+    expect.assertions(1);
+    const { pool, factoryCreate } = setupForTests({ shouldAutoStart: false });
+    factoryCreate.mockImplementation(() => false);
+    await expect(pool.acquire({ timeoutInMs: 50 })).rejects.toThrow(TimeoutError);
+  }, 1000);
+
+  it('should timeout if factory cant validate object', async () => {
+    expect.assertions(1);
+    const { pool, factoryValidate } = await setupForTestsAsync({
+      factoryTaskIntervalInMs: 0,
+      minSize: 1,
+      shouldValidateOnDispatch: true,
+    });
+    factoryValidate.mockImplementation(() => false);
+    await expect(pool.acquire({ timeoutInMs: 50 })).rejects.toThrow(TimeoutError);
+  }, 1000);
+
   it('should resolve in order', async () => {
     expect.assertions(2);
     const { pool } = await setupForTestsAsync({ maxSize: 10 });

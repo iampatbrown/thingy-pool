@@ -1,6 +1,6 @@
 {
   "name": "thingy-pool",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A promise-based object pool for Node.js",
   "author": "Pat Brown",
   "license": "MIT",

@@ -1,4 +1,4 @@
-const Pool = require('../../src/Pool');
+const Pool = require('../../src');
 const TestFactory = require('./TestFactory');
 
 function setupForTests({ factoryTaskIntervalInMs = 5, maxSize = 10, getTimestamp = Date.now, ...otherOptions } = {}) {
