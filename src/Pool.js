@@ -10,6 +10,11 @@ const { toSafePromise, validateFactory, validateObjectQueue, validateRequestQueu
 // does nothing aka noop
 const doNothing = () => {};
 
+// wait for the next event loop iteration... I'm basing this on the way node works... setImmediate might have different implementations...
+function untilNextEventLoopIteration() {
+  return new Promise(resolve => setImmediate(resolve));
+}
+
 /**
  * @example
  * const Pool = require('thingy-pool');
@@ -198,8 +203,8 @@ class Pool extends EventEmitter {
    * @returns {Promise<T>}
    */
   async _acquireNextLoop({ priority = 0, timeoutInMs = this._options.defaultTimeoutInMs } = {}) {
-    // wait for the next event loop iteration... I'm basing this on the way node works... setImmediate might have different implementations...
-    await new Promise(resolve => setImmediate(resolve));
+    // wait for the next event loop iteration...
+    await untilNextEventLoopIteration();
     // pool state might have changed in previous loop so it needs to be checked
     if (this._state >= PoolStates.SHUTTING_DOWN) throw this._getStateError();
     // reject the request if the pool still has max requests
@@ -393,6 +398,8 @@ class Pool extends EventEmitter {
        * @param {Error} error The error that occurred
        */
       this.emit(PoolEvents.CREATE_ERROR, error);
+      // waiting for next event loop before pumping
+      await untilNextEventLoopIteration();
       // keeps the pool going and retries the object creation if needed
       this._pump();
     }
@@ -558,6 +565,8 @@ class Pool extends EventEmitter {
       this._addToAvailable(pooledObject);
     } else {
       this._destroy(pooledObject);
+      // waiting for next event loop before pumping
+      await untilNextEventLoopIteration();
       this._pump();
     }
   }
@@ -575,6 +584,8 @@ class Pool extends EventEmitter {
       this._dispatch(pooledObject);
     } else {
       this._destroy(pooledObject);
+      // waiting for next event loop before pumping
+      await untilNextEventLoopIteration();
       this._pump();
     }
   }
